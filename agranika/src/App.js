@@ -3,6 +3,9 @@ import "./App.css";
 
 import logo from "./assets1/Logo2.png";
 import heroImg from "./assets1/Home2.jpg";
+import mission1 from "./assets1/mission1.webp";
+import mission2 from "./assets1/mission2.jpeg";
+import mission3 from "./assets1/mission3.jpg";
 
 function App() {
   return (
@@ -35,8 +38,6 @@ function App() {
 
           <div className="hero-overlay"></div>
 
-          
-
           <div className="headline-box">
             <h1>
               Leading Children
@@ -57,7 +58,7 @@ function App() {
 
             <div
               className="gallery-card card-tall"
-              style={{ backgroundImage: `url(${heroImg}) `}}
+              style={{ backgroundImage: `url(${heroImg})` }}
             ></div>
 
             <div
@@ -66,6 +67,21 @@ function App() {
             ></div>
           </div>
         </div>
+
+        <section className="mission-section">
+          <h2>Our Mission</h2>
+
+          <p className="mission-text">
+            Our mission is to break the cycle of poverty by empowering orphaned
+            and poor children through education, care, and long-term support.
+          </p>
+
+          <div className="mission-images">
+            <img src={mission1} alt="Mission 1" />
+            <img src={mission2} alt="Mission 2" />
+            <img src={mission3} alt="Mission 3" />
+          </div>
+        </section>
       </div>
     </div>
   );
