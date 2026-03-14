@@ -20,7 +20,9 @@ function Signup({ toggleLogin }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage('Signing up...');
     try {
+      console.log('Sending signup request:', formData);
       const response = await fetch('http://localhost:5002/api/signup', {
         method: 'POST',
         headers: {
@@ -28,15 +30,18 @@ function Signup({ toggleLogin }) {
         },
         body: JSON.stringify(formData),
       });
+      console.log('Response status:', response.status);
       const data = await response.json();
+      console.log('Response data:', data);
       if (response.ok) {
         setMessage('Signup successful! Please login.');
         setFormData({ name: '', phone: '', email: '', password: '' });
       } else {
-        setMessage(data.message);
+        setMessage(`Error: ${data.message}`);
       }
     } catch (error) {
-      setMessage('Error signing up');
+      console.error('Signup error:', error);
+      setMessage(`Network error: ${error.message}`);
     }
   };
 

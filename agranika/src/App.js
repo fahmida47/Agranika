@@ -2,34 +2,39 @@ import React, { useState, useEffect } from "react";
 import Intro from "./Components/Intro";
 import Login from "./Components/Login";
 import Signup from "./Components/Signup";
+import ForgotPassword from "./Components/ForgotPassword";
 
 function App() {
-  const [showLogin, setShowLogin] = useState(false);
-  const [showSignup, setShowSignup] = useState(false);
+  const [page, setPage] = useState("intro");
   const [fadeOut, setFadeOut] = useState(false);
 
   useEffect(() => {
-    const timer1 = setTimeout(() => setFadeOut(true), 2500); // fade out intro
-    const timer2 = setTimeout(() => setShowLogin(true), 3500); // show login
+    const timer1 = setTimeout(() => setFadeOut(true), 2500);
+    const timer2 = setTimeout(() => setPage("login"), 3500);
+
     return () => {
       clearTimeout(timer1);
       clearTimeout(timer2);
     };
   }, []);
 
-  const handleToggle = () => {
-    setShowLogin(!showLogin);
-    setShowSignup(!showSignup);
-  };
-
   return (
     <div>
-      {!showLogin && !showSignup ? (
-        <Intro fadeOut={fadeOut} />
-      ) : showLogin ? (
-        <Login toggleSignup={handleToggle} />
-      ) : (
-        <Signup toggleLogin={handleToggle} />
+      {page === "intro" && <Intro fadeOut={fadeOut} />}
+
+      {page === "login" && (
+        <Login
+          toggleSignup={() => setPage("signup")}
+          goForgot={() => setPage("forgot")}
+        />
+      )}
+
+      {page === "signup" && (
+        <Signup toggleLogin={() => setPage("login")} />
+      )}
+
+      {page === "forgot" && (
+        <ForgotPassword toggleLogin={() => setPage("login")} />
       )}
     </div>
   );
