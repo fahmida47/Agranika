@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Signup.css";
-import bg from "../images/1stbg.jpg.jpeg"; 
+import bg from "../images/1stbg.jpg.jpeg"; // same background as Login
 
 function Signup({ toggleLogin }) {
   const [formData, setFormData] = useState({
@@ -10,7 +10,6 @@ function Signup({ toggleLogin }) {
     password: ''
   });
   const [message, setMessage] = useState('');
-  const [messageType, setMessageType] = useState(''); // success or error
 
   const handleChange = (e) => {
     setFormData({
@@ -22,44 +21,39 @@ function Signup({ toggleLogin }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setMessage('Signing up...');
-    setMessageType('');
-
     try {
       console.log('Sending signup request:', formData);
-      const response = await fetch('http://localhost:5002/api/signup', {
+      const response = await fetch("http://localhost:5004/signup", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(formData),
       });
-
+      console.log('Response status:', response.status);
       const data = await response.json();
-      console.log('Response status:', response.status, 'Response data:', data);
-
+      console.log('Response data:', data);
       if (response.ok) {
-        setMessage(data.message || 'Signup successful! Please login.');
-        setMessageType('success');
-        setFormData({ name: '', phone: '', email: '', password: '' });
-      } else {
-        setMessage(data.message || 'Signup failed.');
-        setMessageType('error');
-      }
-
+  setMessage('Signup successful! Please login.');
+  setFormData({ name: '', phone: '', email: '', password: '' });
+} else {
+  setMessage(`Error: ${data.message}`);
+}
     } catch (error) {
       console.error('Signup error:', error);
       setMessage(`Network error: ${error.message}`);
-      setMessageType('error');
     }
   };
 
   return (
     <div className="signup-container" style={{ backgroundImage: `url(${bg})` }}>
       <div className="signup-box">
+        {/* Header */}
         <div className="signup-header">
           <h1>SIGN UP</h1>
         </div>
 
+        {/* Signup form */}
         <form className="signup-form" onSubmit={handleSubmit}>
           <input 
             type="text" 
@@ -96,11 +90,7 @@ function Signup({ toggleLogin }) {
 
           <button type="submit">SIGN UP</button>
 
-          {message && (
-            <p style={{ color: messageType === 'success' ? 'green' : 'red', marginTop: '10px' }}>
-              {message}
-            </p>
-          )}
+          {message && <p style={{ color: 'red', marginTop: '10px' }}>{message}</p>}
 
           <p className="login-text">
             Already have an account?{" "}

@@ -1,9 +1,10 @@
 // filepath: backend/server.js
-
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 const PORT = process.env.PORT || 5004;
@@ -13,12 +14,11 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB Connection
-const mongoURI = "mongodb://fahmida200547_db_user:faruqi20223845@ac-odm4hsb-shard-00-00.8c5hizv.mongodb.net:27017,ac-odm4hsb-shard-00-01.8c5hizv.mongodb.net:27017,ac-odm4hsb-shard-00-02.8c5hizv.mongodb.net:27017/?ssl=true&replicaSet=atlas-nz6eig-shard-0&authSource=admin&appName=AgranikaCluster";
+const mongoURI = process.env.MONGO_URI;
 
 mongoose.connect(mongoURI)
-.then(() => console.log("✅ MongoDB Connected"))
-.catch(err => console.log("❌ MongoDB Error:", err));
-
+  .then(() => console.log("✅ MongoDB Connected"))
+  .catch(err => console.log("❌ MongoDB Error:", err));
 
 // ================= USER SCHEMA =================
 const userSchema = new mongoose.Schema({
@@ -29,21 +29,15 @@ const userSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
-// Password Hashing
-userSchema.pre('save', async function(next) {
-  if (!this.isModified('password')) return next();
-
-  try {
+// Password hashing
+userSchema.pre('save', async function() {
+  if (this.isModified('password')) {
     const salt = await bcrypt.genSalt(10);
     this.password = await bcrypt.hash(this.password, salt);
-    next();
-  } catch (err) {
-    next(err);
   }
 });
 
 const User = mongoose.model('User', userSchema);
-
 
 // ================= ROUTES =================
 
@@ -69,7 +63,6 @@ app.post('/signup', async (req, res) => {
   }
 });
 
-
 // Login Route
 app.post('/login', async (req, res) => {
   try {
@@ -85,13 +78,20 @@ app.post('/login', async (req, res) => {
       return res.status(400).json({ message: "Wrong password" });
     }
 
-    res.status(200).json({ message: "Login successful" });
+    // Generate JWT token
+    const token = jwt.sign(
+      { id: user._id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: '2h' }
+    );
+
+    res.status(200).json({ message: "Login successful", token });
 
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: "Server error" });
   }
 });
-
 
 // ================= SERVER =================
 app.listen(PORT, () => {

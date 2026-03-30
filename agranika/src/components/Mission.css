@@ -1,0 +1,44 @@
+.mission-section {
+  background: #eef6ea;
+  text-align: center;
+  padding: 60px 30px 80px;
+}
+
+.mission-section h2 {
+  font-size: 64px;
+  font-family: Georgia, serif;
+  font-weight: 500;
+  color: #222;
+  margin: 0 0 20px 0;
+}
+
+.mission-text {
+  max-width: 1000px;
+  margin: 0 auto 40px auto;
+  font-size: 20px;
+  line-height: 1.5;
+  color: #333;
+}
+
+.mission-images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 35px;
+  flex-wrap: nowrap;
+}
+
+.mission-images img {
+  width: 320px;
+  height: 250px;
+  object-fit: cover;
+  border: 4px solid #333;
+  display: block;
+}
+
+.back-btn {
+  margin-top: 40px;
+  padding: 12px 24px;
+  font-size: 18px;
+  cursor: pointer;
+}
