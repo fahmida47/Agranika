@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Login.css";
-import bg from "../assets/LoginPage.png"; // background image
+import bg from "../images/1stbg.jpg.jpeg"; // background image
 
 function Login({ toggleSignup, goForgot,goHome }) {
   const [formData, setFormData] = useState({
@@ -21,7 +21,7 @@ function Login({ toggleSignup, goForgot,goHome }) {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://192.168.0.163:5003/api/login', {
+      const response = await fetch("http://localhost:5004/signup", {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

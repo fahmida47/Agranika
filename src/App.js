@@ -5,13 +5,11 @@ import Signup from "./Components/Signup";
 import ForgotPassword from "./Components/ForgotPassword";
 import HomePage from "./Components/HomePage";
 import Mission from "./Components/Mission";
-//import Home from './Components/Home';
 
 function App() {
   const [page, setPage] = useState("intro");
   const [fadeOut, setFadeOut] = useState(false);
 
-  // Intro auto-switch logic
   useEffect(() => {
     const timer1 = setTimeout(() => setFadeOut(true), 2500);
     const timer2 = setTimeout(() => setPage("login"), 3500);

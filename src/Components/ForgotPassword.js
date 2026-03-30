@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./Login.css";
-import bg from "../assets/LoginPage.png";
+import bg from "../images/1stbg.jpg.jpeg";
 
 function ForgotPassword({ toggleLogin }) {
   const [email, setEmail] = useState("");
