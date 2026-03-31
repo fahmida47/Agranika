@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Intro from "./Components/Intro";
-import Login from "./Components/Login";
-import Signup from "./Components/Signup";
-import ForgotPassword from "./Components/ForgotPassword";
-import HomePage from "./Components/HomePage";
-import Mission from "./Components/Mission";
+import Intro from "./components/Intro";
+import Login from "./components/Login";
+import Signup from "./components/Signup";
+import ForgotPassword from "./components/ForgotPassword";
+import HomePage from "./components/HomePage";
+import Mission from "./components/Mission";
 
 function App() {
   const [page, setPage] = useState("intro");
@@ -30,7 +30,9 @@ function App() {
         />
       )}
       {page === "signup" && <Signup toggleLogin={() => setPage("login")} />}
-      {page === "forgot" && <ForgotPassword toggleLogin={() => setPage("login")} />}
+      {page === "forgot" && (
+        <ForgotPassword toggleLogin={() => setPage("login")} />
+      )}
       {page === "home" && <HomePage goMission={() => setPage("mission")} />}
       {page === "mission" && (
         <Mission
