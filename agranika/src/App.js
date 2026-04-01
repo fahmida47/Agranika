@@ -1,28 +1,34 @@
-import React, { useRef } from "react";
+import React from "react";
+import "./App.css";
+import Navbar from "./components/Navbar";
 import HomePage from "./components/homepage";
 import Mission from "./components/mission";
-import "./App.css";
 
 function App() {
-  const homeRef = useRef(null);
-  const missionRef = useRef(null);
-
-  const goMission = () => {
-    missionRef.current.scrollIntoView({ behavior: "smooth" });
+  const goHome = () => {
+    const homeSection = document.getElementById("home-section");
+    if (homeSection) {
+      homeSection.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
-  const goHome = () => {
-    homeRef.current.scrollIntoView({ behavior: "smooth" });
+  const goMission = () => {
+    const missionSection = document.getElementById("mission-section");
+    if (missionSection) {
+      missionSection.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
-    <div className="page">
-      <div ref={homeRef}>
-        <HomePage goMission={goMission} />
+    <div className="app-wrapper">
+      <Navbar goHome={goHome} goMission={goMission} />
+
+      <div id="home-section">
+        <HomePage />
       </div>
 
-      <div ref={missionRef}>
-        <Mission goHome={goHome} />
+      <div id="mission-section">
+        <Mission />
       </div>
     </div>
   );

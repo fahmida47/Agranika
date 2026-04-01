@@ -1,10 +1,20 @@
-  body {
-  margin: 0;
-  padding: 0;
+  
+html {
+  scroll-behavior: smooth;
 }
 
-.page {
-  width: 100%;
+body {
+  margin: 0;
+  padding: 0;
   overflow-x: hidden;
-  background: #ffffff;
+  overflow-y: auto;
+  font-family: Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.app-wrapper {
+  width: 100%;
 }
