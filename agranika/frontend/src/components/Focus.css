@@ -1,0 +1,107 @@
+.focus-page {
+  padding: 50px 20px;
+  background: linear-gradient(135deg,#ffffffbc 60%);
+  min-height: 100vh;
+  color: #000000;
+  box-sizing: border-box;
+}
+
+/* Highlighted heading box */
+
+.focus-header-box {
+  background: rgb(152, 249, 165);
+  padding: 25px 30px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  margin-bottom: 80px;
+
+  display: flex;
+  justify-content: center; /* center horizontally */
+  text-align: center;      /* heading text center */
+}
+
+.focus-header-box h1 {
+  font-size: 2.5rem;
+  margin: 0;
+  color: #191818;
+}
+
+.back-button-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40px; /* heading er niche space */
+}
+.back-btn {
+  padding: 10px 25px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background: rgba(255,255,255,0.3);
+  color: #098D1F;
+  transition: all 0.3s;
+}
+
+.back-btn:hover {
+  background: #098D1F;
+  color: #fff;
+}
+
+.focus-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.focus-card {
+  background: rgba(11, 175, 22, 0.274); /* Light green 60% */
+  padding: 25px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+  transition: all 0.4s ease;
+  overflow: hidden;
+}
+
+.focus-card.expanded {
+  background: rgba(111, 254, 135, 0.386); /* Dark green 44% */
+}
+
+.focus-card h2 {
+  font-size: 2.0rem;
+  margin-bottom: 90px;
+}
+
+.focus-card p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 120px;
+}
+
+.details-container {
+  overflow-y: auto;
+  transition: max-height 0.5s ease;
+}
+
+.details {
+  font-weight: 400;
+  color: #151715;
+}
+
+.learn-btn {
+  padding: 8px 20px;
+  font-size: 0.95rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: rgba(255,255,255,0.3);
+  color: #000000;
+  transition: all 0.3s;
+}
+
+.learn-btn:hover {
+  background: #098D1F;
+  color: #fff;
+  transform: scale(1.05);
+}
