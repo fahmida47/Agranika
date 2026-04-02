@@ -1,11 +1,33 @@
 import React, { useState } from "react";
 import "./DonatePage.css";
 
-const DonatePage = ({ goHome }) => {
+const DonatePage = () => {
   const [amount, setAmount] = useState(2500);
   const [customAmount, setCustomAmount] = useState("");
-  const [giftQty, setGiftQty] = useState(1);
+  const [showForm, setShowForm] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState("");
 
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+  });
+
+  const [gifts, setGifts] = useState({
+    bag: 0,
+    pencil: 0,
+    uniform: 0,
+  });
+
+  // Update gift quantities
+  const updateGift = (item, value) => {
+    setGifts({
+      ...gifts,
+      [item]: value < 0 ? 0 : value,
+    });
+  };
+
+  // Amount handlers
   const handleAmountClick = (value) => {
     setAmount(value);
     setCustomAmount("");
@@ -17,22 +39,73 @@ const DonatePage = ({ goHome }) => {
     setAmount(val);
   };
 
-  const handleDonate = () => {
+  // Show form
+  const handleDonateClick = () => {
     if (!amount || amount <= 0) {
-      alert("Please enter a valid donation amount.");
+      alert("Enter valid amount");
       return;
     }
-    alert(`Thank you for donating ${amount} BDT!`);
+    setShowForm(true);
+  };
+
+  // Total donation including gifts
+  const totalAmount =
+    Number(amount) +
+    gifts.bag * 500 +
+    gifts.pencil * 200 +
+    gifts.uniform * 1000;
+
+  // Submit to backend
+  const handleFinalSubmit = async () => {
+    if (!formData.name || !formData.email || !formData.phone) {
+      alert("Fill all fields!");
+      return;
+    }
+
+    if (!paymentMethod) {
+      alert("Select payment method!");
+      return;
+    }
+
+    try {
+      const res = await fetch("http://localhost:5005/donate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          ...formData,
+          amount: totalAmount,
+          paymentMethod,
+          gifts,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert("Donation successful! Thank you ❤️");
+        setShowForm(false);
+
+        // Reset form
+        setFormData({ name: "", email: "", phone: "" });
+        setAmount(2500);
+        setCustomAmount("");
+        setGifts({ bag: 0, pencil: 0, uniform: 0 });
+        setPaymentMethod("");
+      } else {
+        alert(data.message || "Something went wrong");
+      }
+    } catch (err) {
+      console.error(err);
+      alert("Server error. Try again later.");
+    }
   };
 
   return (
     <div className="donate-container">
       <h1>Help our children make their lives better</h1>
-      <p>
-        Your support is important to our mission of providing education and
-        empowerment to underprivileged children in Bangladesh.
-      </p>
+      <p>Your support helps children in Bangladesh ❤️</p>
 
+      {/* Amount */}
       <div className="donation-amounts">
         <button
           className={amount === 500 ? "active" : ""}
@@ -54,28 +127,117 @@ const DonatePage = ({ goHome }) => {
         </button>
         <input
           type="number"
-          placeholder="Custom Amount"
+          placeholder="Custom"
           value={customAmount}
           onChange={handleCustomAmountChange}
         />
       </div>
 
-      <div className="gift-items">
-        <label>Gift Items:</label>
-        <input
-          type="number"
-          min="1"
-          value={giftQty}
-          onChange={(e) => setGiftQty(e.target.value)}
-        />
+      {/* Gift Section */}
+      <div className="gift-section">
+        <h3>Select Gift Items</h3>
+        <div className="gift-cards">
+          <div className="gift-card">
+            <img
+              src="https://cdn-icons-png.flaticon.com/128/11258/11258861.png"
+              alt="School Bag"
+            />
+            <p>School Bag (500 BDT)</p>
+            <div className="qty">
+              <button onClick={() => updateGift("bag", gifts.bag - 1)}>-</button>
+              <span>{gifts.bag}</span>
+              <button onClick={() => updateGift("bag", gifts.bag + 1)}>+</button>
+            </div>
+          </div>
+
+          <div className="gift-card">
+            <img
+              src="https://cdn-icons-png.flaticon.com/128/4100/4100658.png"
+              alt="Pencil Box"
+            />
+            <p>Pencil Box (200 BDT)</p>
+            <div className="qty">
+              <button onClick={() => updateGift("pencil", gifts.pencil - 1)}>-</button>
+              <span>{gifts.pencil}</span>
+              <button onClick={() => updateGift("pencil", gifts.pencil + 1)}>+</button>
+            </div>
+          </div>
+
+          <div className="gift-card">
+            <img
+              src="https://cdn-icons-png.flaticon.com/128/2103/2103475.png"
+              alt="School Uniform"
+            />
+            <p>School Uniform (1000 BDT)</p>
+            <div className="qty">
+              <button onClick={() => updateGift("uniform", gifts.uniform - 1)}>-</button>
+              <span>{gifts.uniform}</span>
+              <button onClick={() => updateGift("uniform", gifts.uniform + 1)}>+</button>
+            </div>
+          </div>
+        </div>
+        <p>Total Gifts: {gifts.bag*500 + gifts.pencil*200 + gifts.uniform*1000} BDT</p>
       </div>
 
-      <div className="donate-buttons">
-        <button className="donate-btn" onClick={handleDonate}>
-          Donate {amount} BDT
-        </button>
-    
-      </div>
+      {/* Donate Button */}
+      <button className="donate-btn" onClick={handleDonateClick}>
+        Donate {totalAmount} BDT
+      </button>
+
+      {/* Donation Form */}
+      {showForm && (
+        <div className="donation-form">
+          <h2>Donor Info</h2>
+
+          <input
+            type="text"
+            placeholder="Name"
+            value={formData.name}
+            onChange={(e) =>
+              setFormData({ ...formData, name: e.target.value })
+            }
+            required
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={formData.email}
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
+            required
+          />
+          <input
+            type="text"
+            placeholder="Phone"
+            value={formData.phone}
+            onChange={(e) =>
+              setFormData({ ...formData, phone: e.target.value })
+            }
+            required
+          />
+
+          <h3>Payment</h3>
+          <div className="payment-methods">
+            <button
+              className={paymentMethod === "bkash" ? "active" : ""}
+              onClick={() => setPaymentMethod("bkash")}
+            >
+              bKash
+            </button>
+            <button
+              className={paymentMethod === "nagad" ? "active" : ""}
+              onClick={() => setPaymentMethod("nagad")}
+            >
+              Nagad
+            </button>
+          </div>
+
+          <button className="submit-btn" onClick={handleFinalSubmit}>
+            Confirm Donation
+          </button>
+        </div>
+      )}
     </div>
   );
 };
