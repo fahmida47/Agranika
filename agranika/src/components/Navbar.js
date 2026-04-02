@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import "./navbar.css";
 import logo from "../assets1/Logo2.png";
 
-function Navbar({ goHome, goMission }) {
+function Navbar({ goHome, goMission, goTeam, goContact }) {
+  const [showAboutDropdown, setShowAboutDropdown] = useState(false);
+
   return (
     <header className="navbar">
       <div className="logo-box">
@@ -13,7 +15,27 @@ function Navbar({ goHome, goMission }) {
         <button onClick={goHome}>Home</button>
         <button onClick={goMission}>Mission</button>
         <button>Focus</button>
-        <button>About Us</button>
+
+        <div className="dropdown">
+          <button
+            className="dropdown-btn"
+            onClick={() => setShowAboutDropdown(!showAboutDropdown)}
+          >
+            About Us <span className="arrow">{showAboutDropdown ? "▲" : "▼"}</span>
+          </button>
+
+          {showAboutDropdown && (
+            <div className="dropdown-menu">
+              <button className="dropdown-item" onClick={goContact}>
+                Contact Us
+              </button>
+              <button className="dropdown-item" onClick={goTeam}>
+                Our Agranika Team
+              </button>
+            </div>
+          )}
+        </div>
+
         <button>Donate</button>
       </div>
 

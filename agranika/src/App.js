@@ -1,35 +1,74 @@
-import React from "react";
+import React, { useState } from "react";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import HomePage from "./components/homepage";
 import Mission from "./components/mission";
+import TeamPage from "./components/TeamPage";
+import VolunteerPage from "./components/VolunteerPage";
 
 function App() {
+  const [currentPage, setCurrentPage] = useState("main");
+
   const goHome = () => {
-    const homeSection = document.getElementById("home-section");
-    if (homeSection) {
-      homeSection.scrollIntoView({ behavior: "smooth" });
-    }
+    setCurrentPage("main");
+
+    setTimeout(() => {
+      const homeSection = document.getElementById("home-section");
+      if (homeSection) {
+        homeSection.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100);
   };
 
   const goMission = () => {
-    const missionSection = document.getElementById("mission-section");
-    if (missionSection) {
-      missionSection.scrollIntoView({ behavior: "smooth" });
-    }
+    setCurrentPage("main");
+
+    setTimeout(() => {
+      const missionSection = document.getElementById("mission-section");
+      if (missionSection) {
+        missionSection.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 100);
+  };
+
+  const goTeam = () => {
+    setCurrentPage("team");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const goVolunteer = () => {
+    setCurrentPage("volunteer");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const goContact = () => {
+    alert("Contact Us page later add korte parba");
   };
 
   return (
     <div className="app-wrapper">
-      <Navbar goHome={goHome} goMission={goMission} />
+      <Navbar
+        goHome={goHome}
+        goMission={goMission}
+        goTeam={goTeam}
+        goContact={goContact}
+      />
 
-      <div id="home-section">
-        <HomePage />
-      </div>
+      {currentPage === "main" && (
+        <>
+          <div id="home-section">
+            <HomePage />
+          </div>
 
-      <div id="mission-section">
-        <Mission />
-      </div>
+          <div id="mission-section">
+            <Mission />
+          </div>
+        </>
+      )}
+
+      {currentPage === "team" && <TeamPage goVolunteer={goVolunteer} />}
+
+      {currentPage === "volunteer" && <VolunteerPage />}
     </div>
   );
 }
