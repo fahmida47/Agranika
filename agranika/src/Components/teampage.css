@@ -1,0 +1,108 @@
+.team-page {
+  width: 100%;
+  min-height: 100vh;
+  background: #ffffff;
+}
+
+.team-hero {
+  width: 100%;
+  height: 420px;
+  overflow: hidden;
+}
+
+.team-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.team-content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 60px 30px 90px;
+  text-align: center;
+}
+
+.team-title {
+  font-size: 56px;
+  font-weight: 700;
+  margin-bottom: 28px;
+  color: #2f3342;
+}
+
+.team-title span {
+  color: #e5ab22;
+}
+
+.team-text {
+  max-width: 900px;
+  margin: 0 auto 22px;
+  font-size: 20px;
+  line-height: 1.9;
+  color: #5c5f6a;
+}
+
+.team-box-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 35px;
+  flex-wrap: wrap;
+  margin-top: 55px;
+}
+
+.single-box {
+  justify-content: center;
+}
+
+.team-box {
+  width: 320px;
+  min-height: 170px;
+  background: #fff;
+  border: 5px solid #e5ab22;
+  border-radius: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 25px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #3d4150;
+  position: relative;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.team-box::before {
+  content: "";
+  position: absolute;
+  width: 36px;
+  height: 14px;
+  background: #e5ab22;
+  left: -5px;
+  bottom: 22px;
+  border-radius: 6px;
+}
+
+@media (max-width: 768px) {
+  .team-hero {
+    height: 260px;
+  }
+
+  .team-title {
+    font-size: 40px;
+  }
+
+  .team-text {
+    font-size: 17px;
+    line-height: 1.7;
+  }
+
+  .team-box {
+    width: 100%;
+    max-width: 320px;
+    min-height: 140px;
+    font-size: 22px;
+  }
+}
