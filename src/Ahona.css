@@ -1,0 +1,338 @@
+.hero {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+/* LEFT SIDE */
+.hero-left {
+  width: 45%;
+  background: linear-gradient(
+    135deg,
+    rgb(129, 204, 158),
+    rgb(110, 190, 150)
+  );
+  position: relative;
+
+  animation: fadeInLeft 1.2s ease-out forwards;
+}
+
+/* RIGHT SIDE */
+.hero-right {
+  width: 55%;
+  position: relative;
+  overflow: hidden;
+}
+
+/* IMAGE */
+.hero-right img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+
+  animation: fadeInRight 1.2s ease-out forwards;
+}
+
+/* SOFT BLEND (removes hard split feel) */
+.hero-right::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -40px;
+  width: 80px;
+  height: 100%;
+
+  background: linear-gradient(
+    to right,
+    rgb(129, 204, 158),
+    transparent
+  );
+
+  z-index: 2;
+  pointer-events: none;
+
+  animation: fadeInOverlay 1.5s ease-out forwards;
+}
+
+/* LOGO */
+.logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  height: 80px;
+  z-index: 3;
+}
+
+/* TEXT */
+.text-area {
+  position: absolute;
+  top: 30%;
+  left: 8%;
+  transform: translateY(-50%);
+  color: white;
+  max-width: 420px;
+  z-index: 3;
+
+  animation: fadeInLeft 1.2s ease-out forwards;
+}
+
+.text-area h1 {
+  font-size: 62px;
+  line-height: 1.2;
+}
+
+/* BUTTON */
+.text-area button {
+  margin-top: 20px;
+  padding: 12px 20px;
+  border: none;
+  background: white;
+  color: black;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.text-area button:hover {
+  background: #e6e6e6;
+}
+
+/* ANIMATIONS */
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInOverlay {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/*-----------------------------------------------*/
+/* FIX: prevent overflow issue (50% + 70% = broken layout) */
+html {
+  scroll-behavior: smooth;
+}
+
+/* SPONSOR SECTION BACKGROUND */
+.sponsor-section {
+  padding: 120px 20px;
+  background: #f4f6f4;
+  display: flex;
+  justify-content: center;
+}
+
+/* WHITE CARD */
+.sponsor-card {
+  background: white;
+  max-width: 900px;
+  width: 100%;
+  padding: 50px;
+  border-radius: 16px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+
+  /* slide up animation */
+  animation: slideUp 1s ease-out;
+}
+
+/* TITLE */
+.sponsor-card h2 {
+  color: rgb(129, 204, 158);
+  font-size: 32px;
+  margin-bottom: 20px;
+}
+
+/* TEXT */
+.sponsor-card p {
+  color: #444;
+  line-height: 1.7;
+  margin-bottom: 15px;
+}
+
+/* BUTTON */
+.sponsor-card button {
+  display: block;           /* makes it a block element */
+  margin: 25px auto 0 auto; /* top 25px, horizontal center */
+  padding: 14px 30px;
+  border: none;
+  background: rgb(129, 204, 158);
+  color: white;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.sponsor-card button:hover {
+  background: rgb(90, 180, 140);
+  transform: translateY(-3px);
+}
+/* ANIMATION */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/*------------------------------------*/
+.counter-box {
+  text-align: center;
+  margin: 40px auto;
+}
+
+.counter-box h2 {
+  font-size: 50px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.counter-box h1 {
+  font-size: 80px;
+  font-weight: bold;
+  color: rgb(16, 20, 17);
+  margin: 0;
+}
+
+/* TITLE */
+.form-title {
+  text-align: center;
+  font-size: 42px;
+  font-weight: 700;
+  color: black;
+  margin: 30px 0;
+}
+
+/* FORM */
+.form-container {
+  width: 100%;
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 60px 20px;
+
+  background: linear-gradient(
+    135deg,
+    rgb(129, 204, 158),
+    rgb(110, 190, 150)
+  );
+
+  text-align: center;
+  color: white;
+}
+/* FORM TITLE INSIDE */
+.form-container h2 {
+  margin-bottom: 20px;
+}
+
+/* INPUT */
+.form-container input,
+.form-container select {
+  width: 100%;
+  padding: 14px;
+  margin: 12px 0;
+
+  border: none;
+  border-radius: 10px;
+
+  outline: none;
+  font-size: 15px;
+
+  background: rgba(255, 255, 255, 0.92);
+}
+
+/* BUTTON */
+.form-container button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 18px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: white;
+  color: rgb(90, 180, 140);
+
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.form-container button:hover {
+  transform: translateY(-3px);
+}
+
+/* SPONSOR HERO */
+.sponsor-hero {
+  height: 80vh; /* increased from 70vh */
+  display: block; /* override flex */
+}
+
+.sponsor-hero .hero-right {
+  width: 100%; /* full width */
+  position: relative;
+}
+
+.sponsor-hero .hero-right::before {
+  display: none; /* no blend needed */
+}
+
+.sponsor-hero .bg-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.sponsor-hero .hover-text {
+  position: absolute;
+  top: 30%;
+  left: 75%;
+  transform: translate(-50%, -50%);
+  color: black;
+  font-size: 24px;
+  font-weight: normal;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  max-width: 60%;
+  text-align: center;
+  line-height: 1.5;
+  background: rgba(161, 169, 164, 0.8);
+  padding: 30px;
+  border-radius: 10px;
+  z-index: 10;
+}
+
+.sponsor-hero .hero-right:hover .hover-text {
+  opacity: 1;
+}
