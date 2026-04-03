@@ -1,0 +1,137 @@
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  background: #f8f9fa;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 28px;
+}
+
+.logo-box {
+  display: flex;
+  align-items: center;
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.logo {
+  width: 85px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  outline: none;
+  border: none;
+  box-shadow: none;
+}
+
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  background: #b4f3c4;
+  border-radius: 999px;
+  padding: 14px 90px;
+  position: relative;
+}
+
+.nav-menu button {
+  background: transparent;
+  border: none;
+  color: #333;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  outline: none;
+  box-shadow: none;
+}
+
+.nav-menu button:hover {
+  color: #d89d00;
+}
+
+.nav-menu button:focus,
+.nav-menu button:focus-visible,
+.nav-menu button:active {
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.sponsor-btn {
+  background: #f0b323;
+  color: #222;
+  border: none;
+  border-radius: 999px;
+  padding: 13px 24px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  outline: none;
+  box-shadow: none;
+}
+
+.sponsor-btn:hover {
+  background: #d89d00;
+}
+
+.sponsor-btn:focus,
+.sponsor-btn:focus-visible,
+.sponsor-btn:active {
+  outline: none;
+  box-shadow: none;
+  border: none;
+}
+
+.dropdown {
+  position: relative;
+}
+
+.dropdown-btn {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.arrow {
+  font-size: 12px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 42px;
+  left: 0;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 10px 0;
+  min-width: 230px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.14);
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+}
+
+.dropdown-item {
+  padding: 14px 22px;
+  text-align: left;
+  font-size: 15px;
+  font-weight: 600;
+  color: #444;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+.dropdown-item:hover {
+  background: #f7fff8;
+  color: #d89d00;
+}

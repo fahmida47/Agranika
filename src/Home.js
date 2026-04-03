@@ -48,15 +48,15 @@ function Home() {
             to educational opportunities and support their journey towards a brighter future.
           </p>
 
-          <button type="button"
-          onClick={() => {
-           console.log("Button clicked");
-           sessionStorage.setItem("fromHome", "true");
-           navigate("/sponsor");
-      }}
->
-  Sponsor a Child
-</button>             
+          <button
+            type="button"
+            onClick={() => {
+              console.log("Sponsor button clicked, going to sponsor page");
+              navigate("/sponsor");
+            }}
+          >
+            Sponsor a Child
+          </button>
         </div>
 
       </div>

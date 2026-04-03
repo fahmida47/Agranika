@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
+import "./Sponsor.css";
 import bgImage from "./Imagenew/Bg2.webp";
 
 function Sponsor() {
