@@ -1,57 +1,51 @@
 import React, { useState } from "react";
 import "./Focus.css";
 
+import educationIcon from "../assets/Education.png";
+import digitalIcon from "../assets/Digital-Learning.png";
+import environmentIcon from "../assets/Environment.png";
+import bg from "../assets/Focusbg.png";
+
 const focusAreas = [
-  {
-    title: "Education",
-    summary: "Education is the core focus area of JAAGO.",
-    details: `Education is the core focus area of JAAGO. For 17 years, JAAGO has been working to make education accessible to children from marginalized communities and hard-to-reach areas. We focus on quality education, teacher training, child-friendly learning environments, inclusive classrooms, extracurricular activities, and literacy programs. Our goal is to empower every child to reach their full potential.`
-  },
-  {
-    title: "Digital Learning",
-    summary: "Empowering children with digital skills.",
-    details: `JAAGO introduces interactive digital learning programs, online resources, and technology-driven classrooms. Children learn coding, digital literacy, problem-solving, and online collaboration tools. These programs bridge the digital divide and prepare students for modern careers, ensuring access to technology for all children.`
-  },
-  {
-    title: "Environment",
-    summary: "Creating awareness and action on climate change.",
-    details: `From global warming to environmental pollution, JAAGO encourages youth participation in protecting the planet. We run campaigns, workshops, tree planting initiatives, clean-up drives, and climate education programs. Our goal is to create responsible global citizens who contribute to a sustainable future.`
-  },
+  { title: "Education", icon: <img src={educationIcon} alt="Education" />, summary: "Education is the core focus area of AGRANIKA.", pageKey: "education" },
+  { title: "Digital Learning", icon: <img src={digitalIcon} alt="Digital Learning" />, summary: "Empowering children with Digital Skills.", pageKey: "digital" },
+  { title: "Environment", icon: <img src={environmentIcon} alt="Environment" />, summary: "Creating awareness and action on Climate Change.", pageKey: "environment" },
 ];
 
-const Focus = ({ goHome }) => {
-  const [expandedIndex, setExpandedIndex] = useState(null);
+const Focus = ({ goToPage }) => {
+  const [selectedCard, setSelectedCard] = useState(null); // <-- track selected card
 
-  const toggleDetails = (index) => {
-    setExpandedIndex(expandedIndex === index ? null : index);
+  const handleCardClick = (pageKey) => {
+    setSelectedCard(pageKey); // change color
+    goToPage(pageKey);        // navigate to subpage
   };
 
   return (
     <div className="focus-page">
-      {/* Highlighted heading box */}
       <div className="focus-header-box">
-  <h1>Our Focus Areas</h1>
-</div>
-
-<div className="focus-cards">
-  {focusAreas.map((area, index) => {
-    const isExpanded = expandedIndex === index;
-    return (
-      <div key={index} className={`focus-card ${isExpanded ? "expanded" : ""}`}>
-        <h2>{area.title}</h2>
-        <p>{area.summary}</p>
-        <div className="details-container" style={{ maxHeight: isExpanded ? "500px" : "0" }}>
-          <p className="details">{area.details}</p>
-        </div>
-        <button className="learn-btn" onClick={() => toggleDetails(index)}>
-          {isExpanded ? "Show Less" : "Learn More"}
-        </button>
+          <div className="focus-image">
+    <img src={bg} alt="Focus Areas Banner" />
+    <h1>Focus Areas</h1>
+  </div>
       </div>
-    );
-  })}
-</div>
+      <div className="focus-cards">
+        {focusAreas.map((area, index) => (
+          <div
+            key={index}
+            className={`focus-card fade-in ${selectedCard === area.pageKey ? "selected" : ""}`} // <-- add selected class
+            onClick={() => handleCardClick(area.pageKey)}
+          >
+            <div className="icon">{area.icon}</div>
+            <h3>{area.title}</h3>
+            <p className="summary">{area.summary}</p>
+            <button className="learn-btn">Learn More</button>
+          </div>
+        ))}
+      </div>
     </div>
+    
   );
 };
+
 
 export default Focus;

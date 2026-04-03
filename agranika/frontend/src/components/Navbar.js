@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import "./navbar.css";
 import logo from "../assets1/Logo2.png";
 
-function Navbar({ goHome, goMission,goFocus,goDonate }) {
+function Navbar({ goHome, goMission,goFocus,goTeam, goContact,goDonate,goSponsorPage }) {
+  const [showAboutDropdown, setShowAboutDropdown] = useState(false);
   return (
     <header className="navbar">
       <div className="logo-box">
@@ -13,13 +14,34 @@ function Navbar({ goHome, goMission,goFocus,goDonate }) {
         <button onClick={goHome}>Home</button>
         <button onClick={goMission}>Mission</button>
         <button onClick={goFocus}>Focus</button>
-        <button>About Us</button>
+        
+        <div className="dropdown">
+          <button
+            className="dropdown-btn"
+            onClick={() => setShowAboutDropdown(!showAboutDropdown)}
+          >
+            About Us <span className="arrow">{showAboutDropdown ? "▲" : "▼"}</span>
+          </button>
+
+          {showAboutDropdown && (
+            <div className="dropdown-menu">
+              <button className="dropdown-item" onClick={goContact}>
+                Contact Us
+              </button>
+              <button className="dropdown-item" onClick={goTeam}>
+                Our Agranika Team
+              </button>
+            </div>
+          )}
+        </div>
         <button onClick={goDonate}>Donate</button>
         
       </div>
 
       <div className="nav-right">
-        <button className="sponsor-btn">Sponsor a Child</button>
+        <button className="sponsor-btn" onClick={goSponsorPage}>
+          Sponsor a Child
+        </button>
       </div>
     </header>
   );

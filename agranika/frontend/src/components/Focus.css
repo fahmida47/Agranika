@@ -1,107 +1,151 @@
+/* ===== Focus Page ===== */
 .focus-page {
-  padding: 50px 20px;
-  background: linear-gradient(135deg,#ffffffbc 60%);
-  min-height: 100vh;
-  color: #000000;
-  box-sizing: border-box;
+  padding: 2rem;
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-
-/* Highlighted heading box */
 
 .focus-header-box {
-  background: rgb(152, 249, 165);
-  padding: 25px 30px;
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-  margin-bottom: 80px;
-
   display: flex;
-  justify-content: center; /* center horizontally */
-  text-align: center;      /* heading text center */
-}
-
-.focus-header-box h1 {
-  font-size: 2.5rem;
-  margin: 0;
-  color: #191818;
-}
-
-.back-button-container {
-  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-bottom: 3rem;
   justify-content: center;
-  margin-bottom: 40px; /* heading er niche space */
-}
-.back-btn {
-  padding: 10px 25px;
-  font-size: 1rem;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  background: rgba(255,255,255,0.3);
-  color: #098D1F;
-  transition: all 0.3s;
 }
 
-.back-btn:hover {
-  background: #098D1F;
-  color: #fff;
-}
+.focus-header-box h1 { font-size: 2.5rem; font-weight: bold; color: #020202; }
 
 .focus-cards {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 30px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  justify-items: center;
+  width: 100%;
+  max-width: 1000px;
 }
 
 .focus-card {
-  background: rgba(11, 175, 22, 0.274); /* Light green 60% */
-  padding: 25px;
-  border-radius: 15px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-  transition: all 0.4s ease;
-  overflow: hidden;
+  background: #99f5aa98;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  width: 100%;
+  max-width: 300px;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.3s ease;
+  cursor: pointer;
 }
 
-.focus-card.expanded {
-  background: rgba(111, 254, 135, 0.386); /* Dark green 44% */
-}
+.focus-card.fade-in { opacity: 1; transform: translateY(0); }
 
-.focus-card h2 {
-  font-size: 2.0rem;
-  margin-bottom: 90px;
-}
+.focus-card .icon img { width: 50px; height: 50px; }
 
-.focus-card p {
-  font-size: 1rem;
-  line-height: 1.6;
-  margin-bottom: 120px;
-}
+.focus-card h3 { font-size: 1.2rem; font-weight: bold; margin: 0; }
 
-.details-container {
-  overflow-y: auto;
-  transition: max-height 0.5s ease;
-}
-
-.details {
-  font-weight: 400;
-  color: #151715;
-}
+.focus-card .summary { font-size: 0.95rem; color: #555; }
 
 .learn-btn {
-  padding: 8px 20px;
-  font-size: 0.95rem;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  background: rgba(255,255,255,0.3);
-  color: #000000;
-  transition: all 0.3s;
+  margin-top: auto;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border: 1px solid #000;
+  background: none;
+  color: #000;
+  border-radius: 20px;
+  align-self: center;
+  transition: all 0.3s ease;
 }
 
-.learn-btn:hover {
-  background: #098D1F;
+.learn-btn:hover { background: #016b1f; color: #fff; }
+
+.focus-card.selected {
+  background-color: #4caf50;
   color: #fff;
-  transform: scale(1.05);
 }
+
+.focus-card.selected .learn-btn { border-color: white; color: white; }
+
+.focus-card.selected .summary { color: #f0f0f0; }
+
+/* ===== Subpages ===== */
+.subpage {
+  padding: 3rem;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.subpage-content {
+  display: flex;
+  flex-direction: row;
+  gap: 2rem;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.subpage-img {
+  width: 1000px;
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+.subpage p {
+  flex: 1;
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+.subpage button {
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  border: 1px solid #000;
+  background: none;
+  color: #000;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.subpage button:hover {
+  background: #016b1f;
+  color: #fff;
+}
+
+/* Hover lift effect */
+.focus-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+/* Responsive Subpages */
+@media (max-width: 600px) {
+  .subpage-content {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .subpage-img { margin-bottom: 1rem; }
+  .subpage p { text-align: center; }
+}
+
+.focus-image {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.focus-image img {
+  width: 1000%;
+  max-width: 1450px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+

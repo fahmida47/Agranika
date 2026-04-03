@@ -1,4 +1,5 @@
 // filepath: backend/server.js
+// filepath: backend/server.js
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
@@ -14,11 +15,11 @@ app.use(cors());
 app.use(express.json());
 
 // MongoDB Connection
-const mongoURI = process.env.MONGO_URI;
+const mongoURI = process.env.MONGO_URI_USERS;
 
 mongoose
   .connect(mongoURI)
-  .then(() => console.log("✅ MongoDB Connected"))
+  .then(() => console.log("✅ MongoDB Connected",mongoose.connection.AgranikaDB))
   .catch((err) => console.log("❌ MongoDB Error:", err));
 
 // ================= USER SCHEMA =================
