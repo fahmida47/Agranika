@@ -2,6 +2,8 @@ import React, { useState, useRef, useContext, useEffect } from "react";
 import bgImage from "../assets/Bg2.webp";
 import { SponsorContext } from "./SponsorContext";
 
+const API_BASE = process.env.REACT_APP_API_BASE_URL || "http://127.0.0.1:5004/api";
+
 function Sponsor({ setPage }) {
   const context = useContext(SponsorContext);
   const unsponsored = context?.unsponsored ?? 0;
@@ -41,11 +43,16 @@ function Sponsor({ setPage }) {
         setUnsponsored(prev => Math.max(prev - count, 0));
       }
 
-      const response = await fetch("http://localhost:5006/api/sponsors", {
+      const token = localStorage.getItem("token");
+      const headers = { "Content-Type": "application/json" };
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
+
+      const response = await fetch(`${API_BASE}/sponsors`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        credentials: "include",
+        headers,
         body: JSON.stringify({
           ...form,
           children: Number(form.children),

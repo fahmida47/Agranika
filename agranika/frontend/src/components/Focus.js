@@ -13,7 +13,7 @@ const focusAreas = [
 ];
 
 const Focus = ({ goToPage }) => {
-  const [selectedCard, setSelectedCard] = useState(null); // <-- track selected card
+  const [selectedCard, setSelectedCard] = useState(null); // selected card
 
   const handleCardClick = (pageKey) => {
     setSelectedCard(pageKey); // change color

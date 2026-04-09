@@ -49,6 +49,15 @@ function App() {
 
   const goToPage = (pageKey) => setPage(pageKey);
 
+  const protectedGoToPage = (pageKey) => {
+    if (!localStorage.getItem("token")) {
+      alert("Please login first to access this page.");
+      setPage("login");
+      return;
+    }
+    setPage(pageKey);
+  };
+
   // Smooth scroll functions for main page sections
   const goHome = () => {
     setPage("home");
@@ -69,7 +78,7 @@ function App() {
   const goTeam = () => setPage("team");
   const goVolunteer = () => setPage("volunteer");
   const goContact = () => alert("Contact Us page will be added later");
-  const goSponsorPage = () => setPage("sponsorPage");
+  const goSponsorPage = () => protectedGoToPage("sponsorPage");
   const goSponsor = () => setPage("sponsor"); 
   
 
@@ -81,7 +90,7 @@ function App() {
           goHome={goHome}
           goMission={goMission}
           goFocus={() => setPage("focus")}
-          goDonate={() => setPage("donate")}
+          goDonate={() => protectedGoToPage("donate")}
           goTeam={goTeam}
           goContact={goContact}
           goSponsorPage={goSponsorPage} 
@@ -104,7 +113,7 @@ function App() {
       {page === "home" && (
         <>
           <div id="home-section">
-            <HomePage goMission={goMission} goFocus={() => setPage("focus")} goDonate={() => setPage("donate")} />
+            <HomePage goMission={goMission} goFocus={() => setPage("focus")} goDonate={() => protectedGoToPage("donate")} />
           </div>
 
           <div id="mission-section">

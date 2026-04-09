@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./DonatePage.css";
 
+const API_BASE = process.env.REACT_APP_API_BASE_URL || "http://127.0.0.1:5004/api";
+
 const DonatePage = () => {
   const [amount, setAmount] = useState(2500);
   const [customAmount, setCustomAmount] = useState("");
@@ -19,7 +21,6 @@ const DonatePage = () => {
     uniform: 0,
   });
 
-  // Update gift quantities
   const updateGift = (item, value) => {
     setGifts({
       ...gifts,
@@ -27,7 +28,6 @@ const DonatePage = () => {
     });
   };
 
-  // Amount handlers
   const handleAmountClick = (value) => {
     setAmount(value);
     setCustomAmount("");
@@ -39,7 +39,6 @@ const DonatePage = () => {
     setAmount(val);
   };
 
-  // Show form
   const handleDonateClick = () => {
     if (!amount || amount <= 0) {
       alert("Enter valid amount");
@@ -48,14 +47,13 @@ const DonatePage = () => {
     setShowForm(true);
   };
 
-  // Total donation including gifts
   const totalAmount =
     Number(amount) +
     gifts.bag * 500 +
     gifts.pencil * 200 +
     gifts.uniform * 1000;
 
-  // Submit to backend
+  // 🔐 JWT Protected Submission
   const handleFinalSubmit = async () => {
     if (!formData.name || !formData.email || !formData.phone) {
       alert("Fill all fields!");
@@ -68,9 +66,16 @@ const DonatePage = () => {
     }
 
     try {
-      const res = await fetch("http://localhost:5005/donate", {
+      const token = localStorage.getItem("token");
+      const headers = { "Content-Type": "application/json" };
+      if (token) {
+        headers["Authorization"] = `Bearer ${token}`;
+      }
+
+      const res = await fetch(`${API_BASE}/donation/donate`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        headers,
         body: JSON.stringify({
           ...formData,
           amount: totalAmount,
@@ -82,7 +87,7 @@ const DonatePage = () => {
       const data = await res.json();
 
       if (res.ok) {
-        alert("Donation successful! Thank you ❤️");
+        alert("✅ Donation successful! Thank you ❤️");
         setShowForm(false);
 
         // Reset form
@@ -106,36 +111,36 @@ const DonatePage = () => {
       <p>Your support helps children in Bangladesh ❤️</p>
 
       {/* Amount */}
-      <div class="donation-container">
-      <div className="donation-amounts">
-        <button
-          className={amount === 500 ? "active" : ""}
-          onClick={() => handleAmountClick(500)}
-        >
-          500 BDT
-        </button>
-        <button
-          className={amount === 2500 ? "active" : ""}
-          onClick={() => handleAmountClick(2500)}
-        >
-          2500 BDT
-        </button>
-        <button
-          className={amount === 5000 ? "active" : ""}
-          onClick={() => handleAmountClick(5000)}
-        >
-          5000 BDT
-        </button>
-        <input
-          type="number"
-          placeholder="Custom"
-          value={customAmount}
-          onChange={handleCustomAmountChange}
-        />
-      </div>
+      <div className="donation-container">
+        <div className="donation-amounts">
+          <button
+            className={amount === 500 ? "active" : ""}
+            onClick={() => handleAmountClick(500)}
+          >
+            500 BDT
+          </button>
+          <button
+            className={amount === 2500 ? "active" : ""}
+            onClick={() => handleAmountClick(2500)}
+          >
+            2500 BDT
+          </button>
+          <button
+            className={amount === 5000 ? "active" : ""}
+            onClick={() => handleAmountClick(5000)}
+          >
+            5000 BDT
+          </button>
+          <input
+            type="number"
+            placeholder="Custom"
+            value={customAmount}
+            onChange={handleCustomAmountChange}
+          />
+        </div>
       </div>
 
-      {/* Gift Section */}
+      {/* Gifts */}
       <div className="gift-section">
         <h3>Select Gift Items</h3>
         <div className="gift-cards">
