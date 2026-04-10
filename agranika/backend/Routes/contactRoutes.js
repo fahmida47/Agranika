@@ -1,9 +1,9 @@
 import express from "express";
-import { createDonation } from "../Controllers/donationController.js";
+import { submitContactForm } from "../Controllers/contactController.js";
 import checkToken from "../Middlewares/authMiddleware.js";
 
 const router = express.Router();
 
-router.post("/donate", checkToken, createDonation);
+router.post("/contacts", checkToken, submitContactForm);
 
 export default router;

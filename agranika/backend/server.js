@@ -8,6 +8,8 @@ import mongoose from "mongoose";
 import authRoutes from "./Routes/authRoutes.js";
 import donationRoutes from "./Routes/donationRoutes.js";
 import SponsorshipRoutes from "./Routes/SponsorshipRoutes.js";
+import volunteerRoutes from "./Routes/volunteerRoutes.js";
+import contactRoutes from "./Routes/contactRoutes.js";
 
 // 1. Dotenv config shobcheye upore thakbe
 dotenv.config();
@@ -32,6 +34,8 @@ app.use(cookieParser()); // Cookie parser oboshshoi routes-er upore thakbe
 app.use("/api/auth", authRoutes);
 app.use("/api/donation", donationRoutes);
 app.use("/api/sponsors", SponsorshipRoutes);
+app.use("/api/volunteer", volunteerRoutes);
+app.use("/api/contact", contactRoutes);
 
 // 5. Database Connection
 mongoose.connect(process.env.MONGO_URI)

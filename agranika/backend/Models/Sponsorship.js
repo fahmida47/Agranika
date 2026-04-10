@@ -6,8 +6,8 @@ const sponsorSchema = new mongoose.Schema({
   email: { type: String, required: true },
   phone: { type: String, required: true },
   children: { type: Number, required: true },
-  interval: { type: String, required: true }, // Monthly or Yearly
-  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", default: null }, // optional logged-in user
+  interval: { type: String, required: true }, 
+  userId: { type: mongoose.Schema.Types.ObjectId, ref: "User", default: null }, 
   createdAt: { type: Date, default: Date.now },
 });
 

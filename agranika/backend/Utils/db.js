@@ -11,16 +11,3 @@ export const hashPassword = async (password) => {
 export const comparePassword = async (password, hashedPassword) => {
   return await bcrypt.compare(password, hashedPassword);
 };
-/*const mongoose = require("mongoose");
-
-const connectDB = async (uri) => {
-  try {
-    await mongoose.connect(uri);
-    console.log("✅ MongoDB connected");
-  } catch (err) {
-    console.log("❌ MongoDB connection error:", err);
-    process.exit(1);
-  }
-};
-
-module.exports = connectDB;*/

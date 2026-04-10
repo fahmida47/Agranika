@@ -1,16 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./VolunteerForm.css";
 
-function VolunteerForm() {
+const VolunteerForm = ({ goLogin }) => {
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     fullName: "",
-    email: "",
     phone: "",
     age: "",
     address: "",
     interest: "",
     message: "",
   });
+
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Please login first to access the Volunteer Application!");
+      if (goLogin) goLogin();
+    }
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, [goLogin]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -20,23 +29,66 @@ function VolunteerForm() {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert("Volunteer form submitted successfully!");
-    console.log(formData);
+    setLoading(true);
 
-    setFormData({
-      fullName: "",
-      email: "",
-      phone: "",
-      age: "",
-      address: "",
-      interest: "",
-      message: "",
-    });
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("❌ Please login first!");
+      if (goLogin) goLogin();
+      setLoading(false);
+      return;
+    }
+
+   
+    if (!formData.fullName || !formData.phone || !formData.age || !formData.interest) {
+      alert("Please fill all required fields!");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const res = await fetch("http://localhost:5004/api/volunteer/apply", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`, 
+        },
+        credentials: "include",
+        body: JSON.stringify({
+          ...formData,
+          age: Number(formData.age) 
+        }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        alert("✅ Application submitted successfully! ❤️");
+        // ফর্ম রিসেট
+        setFormData({
+          fullName: "",
+          phone: "",
+          age: "",
+          address: "",
+          interest: "",
+          message: "",
+        });
+      } else {
+        alert("❌ " + (data.message || "Something went wrong"));
+        if (res.status === 401 && goLogin) goLogin();
+      }
+    } catch (err) {
+      console.error(err);
+      alert("❌ Server error. Try again later.");
+    } finally {
+      setLoading(false);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
   };
 
-  return (
+    return (
     <div className="volunteer-form-section">
       <h2 className="form-title">Join Our Volunteer Team</h2>
       <p className="form-subtitle">
@@ -52,18 +104,6 @@ function VolunteerForm() {
             value={formData.fullName}
             onChange={handleChange}
             placeholder="Enter your full name"
-            required
-          />
-        </div>
-
-        <div className="form-group">
-          <label>Email Address</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Enter your email"
             required
           />
         </div>
@@ -130,7 +170,7 @@ function VolunteerForm() {
           ></textarea>
         </div>
 
-        <button type="submit" className="submit-btn">
+        <button type="submit" className="submit-btn" disabled={loading}>
           Submit Form
         </button>
       </form>

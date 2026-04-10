@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./DonatePage.css";
 
-const DonatePage = ({ goLogin }) => { // goLogin props theke asche nishchit houn
+const DonatePage = ({ goLogin }) => { 
   const [amount, setAmount] = useState(2500);
   const [customAmount, setCustomAmount] = useState("");
   const [showForm, setShowForm] = useState(false);
@@ -9,7 +9,7 @@ const DonatePage = ({ goLogin }) => { // goLogin props theke asche nishchit houn
 
   const [formData, setFormData] = useState({
     name: "",
-    email: "", // UI te email field thakle state e thaka bhalo
+    email: "", 
     phone: "",
   });
 
@@ -43,7 +43,6 @@ const DonatePage = ({ goLogin }) => { // goLogin props theke asche nishchit houn
     gifts.pencil * 200 +
     gifts.uniform * 1000;
 
-  // 🔐 1st Check: Login kora ache ki na
   const handleDonateClick = () => {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -59,7 +58,6 @@ const DonatePage = ({ goLogin }) => { // goLogin props theke asche nishchit houn
     setShowForm(true);
   };
 
-  // 🔐 JWT Protected Submission
   const handleFinalSubmit = async () => {
     if (!formData.name || !formData.phone) {
       alert("Fill all fields!");

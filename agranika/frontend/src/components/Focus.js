@@ -13,11 +13,11 @@ const focusAreas = [
 ];
 
 const Focus = ({ goToPage }) => {
-  const [selectedCard, setSelectedCard] = useState(null); // selected card
+  const [selectedCard, setSelectedCard] = useState(null); 
 
   const handleCardClick = (pageKey) => {
-    setSelectedCard(pageKey); // change color
-    goToPage(pageKey);        // navigate to subpage
+    setSelectedCard(pageKey); 
+    goToPage(pageKey);        
   };
 
   return (
@@ -32,7 +32,7 @@ const Focus = ({ goToPage }) => {
         {focusAreas.map((area, index) => (
           <div
             key={index}
-            className={`focus-card fade-in ${selectedCard === area.pageKey ? "selected" : ""}`} // <-- add selected class
+            className={`focus-card fade-in ${selectedCard === area.pageKey ? "selected" : ""}`} 
             onClick={() => handleCardClick(area.pageKey)}
           >
             <div className="icon">{area.icon}</div>

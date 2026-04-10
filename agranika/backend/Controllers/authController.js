@@ -2,7 +2,7 @@ import User from "../Models/User.js";
 import jwt from "jsonwebtoken";
 import { comparePassword, hashPassword } from "../Utils/db.js";
 
-// Lifetime constant (3600000 = 1 hour)
+
 const lifetime = 3600000; 
 
 // --- SIGNUP ---
@@ -10,16 +10,16 @@ export const signup = async (req, res) => {
   try {
     const { name, email, password ,phone} = req.body;
 
-    // 1. User check
+    
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(409).json({ message: "Email already in use." });
     }
 
-    // 2. Manual Hashing (Jehetu Model theke pre-save hook bad diyechen)
+    
     const hashedPassword = await hashPassword(password);
 
-    // 3. User Save
+   
     const newUser = new User({ 
       name, 
       email, 
@@ -55,7 +55,7 @@ export const login = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // DEBUG: Terminal-e dekhun password match korche kina
+    
     const isPassEqual = await comparePassword(password, user.password);
     console.log("Entered Password:", password);
     console.log("DB Hashed Password:", user.password);
@@ -74,7 +74,7 @@ export const login = async (req, res) => {
     res.cookie("token", token, {
       maxAge: lifetime,
       httpOnly: true,
-      secure: false, // Localhost-er jonno false thaka dorkar
+      secure: false, 
       sameSite: "lax",
       path: "/",
     });

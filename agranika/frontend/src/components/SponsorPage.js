@@ -7,7 +7,6 @@ function SponsorPage({ goSponsor }) {
   return (
     <div className="page">
 
-      {/* HERO */}
       <div className="hero">
 
         <div className="hero-left">

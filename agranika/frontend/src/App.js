@@ -44,6 +44,7 @@ function App() {
     "environment",
     "team",
     "volunteer",
+    "contact",
     "sponsorPage",
    
   ].includes(page);
@@ -98,7 +99,7 @@ function App() {
         />
       )}
 
-      {/* Intro/Login/Signup/Forgot */}
+     
       {page === "intro" && <Intro fadeOut={fadeOut} />}
       {page === "login" && (
         <Login
@@ -123,20 +124,20 @@ function App() {
         </>
       )}
 
-      {/* Focus page */}
+      
       {page === "focus" && <Focus goToPage={goToPage} />}
 
-      {/* Donate page */}
+     
       {page === "donate" && <DonatePage goHome={goHome} />}
 
-      {/* Team and Volunteer pages */}
+     
       {page === "team" && <TeamPage goVolunteer={goVolunteer} />}
       {page === "volunteer" && <VolunteerPage />}
 
-      {/* Contact page */}
+      
       {page === "contact" && <Contact />}
 
-      {/* Dynamic Focus Subpages */}
+     
       {["education", "digital", "environment"].includes(page) && (
         <div className="subpage">
           <h1>{focusContent[page].title}</h1>
@@ -146,7 +147,7 @@ function App() {
           </div>
         </div>
       )}
-      {/* Sponsor Pages */}
+     
         {page === "sponsorPage" && <SponsorPage goSponsor={goSponsor} />}
         {page === "sponsor" && <Sponsor />}
     </div>

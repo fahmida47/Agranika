@@ -27,7 +27,7 @@ function Login({ toggleSignup, goForgot, goHome }) {
       const response = await fetch("http://localhost:5004/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include", // cookie support
+        credentials: "include", 
         body: JSON.stringify(formData)
       });
 
@@ -35,7 +35,7 @@ function Login({ toggleSignup, goForgot, goHome }) {
 
       if (response.ok) {
         setMessage("✅ Login successful!");
-        localStorage.setItem("token", data.token || ""); // optional if backend returns token
+        localStorage.setItem("token", data.token || ""); 
 
         setTimeout(() => {
           goHome();

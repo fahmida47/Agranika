@@ -29,7 +29,7 @@ function Signup({ toggleLogin }) {
       const response = await fetch(`${API_BASE}/auth/signup`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        credentials: "include", // cookie support
+        credentials: "include", 
         body: JSON.stringify(formData)
       });
 
@@ -38,7 +38,6 @@ function Signup({ toggleLogin }) {
       if (response.ok) {
         setMessage("✅ Signup successful! Redirecting to login...");
         
-        // Store token if backend returns it
         if (data.token) {
           localStorage.setItem("token", data.token);
         }
