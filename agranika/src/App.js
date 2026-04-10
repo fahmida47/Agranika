@@ -5,6 +5,7 @@ import HomePage from "./components/homepage";
 import Mission from "./components/mission";
 import TeamPage from "./components/TeamPage";
 import VolunteerPage from "./components/VolunteerPage";
+import Contact from "./components/Contact";
 
 function App() {
   const [currentPage, setCurrentPage] = useState("main");
@@ -42,7 +43,8 @@ function App() {
   };
 
   const goContact = () => {
-    alert("Contact Us page later add korte parba");
+    setCurrentPage("contact");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -69,6 +71,8 @@ function App() {
       {currentPage === "team" && <TeamPage goVolunteer={goVolunteer} />}
 
       {currentPage === "volunteer" && <VolunteerPage />}
+
+      {currentPage === "contact" && <Contact />}
     </div>
   );
 }
