@@ -13,6 +13,7 @@ import Mission from "./components/Mission";
 import DonatePage from "./components/DonatePage";
 import TeamPage from "./components/TeamPage";
 import VolunteerPage from "./components/VolunteerPage";
+import Contact from "./components/Contact";
 import Sponsor from "./components/Sponsor";
 import SponsorPage from "./components/SponsorPage";
 import { SponsorProvider } from "./components/SponsorContext";
@@ -77,7 +78,7 @@ function App() {
 
   const goTeam = () => setPage("team");
   const goVolunteer = () => setPage("volunteer");
-  const goContact = () => alert("Contact Us page will be added later");
+  const goContact = () => setPage("contact");
   const goSponsorPage = () => protectedGoToPage("sponsorPage");
   const goSponsor = () => setPage("sponsor"); 
   
@@ -131,6 +132,9 @@ function App() {
       {/* Team and Volunteer pages */}
       {page === "team" && <TeamPage goVolunteer={goVolunteer} />}
       {page === "volunteer" && <VolunteerPage />}
+
+      {/* Contact page */}
+      {page === "contact" && <Contact />}
 
       {/* Dynamic Focus Subpages */}
       {["education", "digital", "environment"].includes(page) && (

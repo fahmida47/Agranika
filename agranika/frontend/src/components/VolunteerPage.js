@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import "./volunteerpage.css";
+import VolunteerForm from "./VolunteerForm";
 
 function VolunteerPage() {
   const [copiedNumber, setCopiedNumber] = useState("");
+  const [showForm, setShowForm] = useState(false);
 
   const handleCopy = async (number) => {
     try {
@@ -15,6 +17,10 @@ function VolunteerPage() {
     } catch (error) {
       console.log("Copy failed", error);
     }
+  };
+
+  const handleJoinUsClick = () => {
+    setShowForm(true);
   };
 
   return (
@@ -90,6 +96,14 @@ function VolunteerPage() {
             </button>
           </div>
         </div>
+
+        <div className="join-us-wrapper">
+          <button className="join-us-btn" onClick={handleJoinUsClick}>
+            Join Us
+          </button>
+        </div>
+
+        {showForm && <VolunteerForm />}
       </div>
     </div>
   );

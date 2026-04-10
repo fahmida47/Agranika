@@ -81,7 +81,7 @@
 .donate-btn {
   margin-top: 20px;
   padding: 15px 30px;
-  background: gold;
+  background: rgb(251, 215, 13);
   border: none;
   border-radius: 8px;
 }
@@ -109,7 +109,7 @@
 .payment-methods button {
   flex: 1;
   padding: 10px;
-  border: 2px solid green;
+  border: 2px solid rgba(0, 0, 0, 0.793);
   background: white;
 }
 

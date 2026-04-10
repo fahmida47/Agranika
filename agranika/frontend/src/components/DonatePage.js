@@ -187,7 +187,6 @@ const DonatePage = ({ goLogin }) => { // goLogin props theke asche nishchit houn
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             required
           />
-          
           <input
             type="text"
             placeholder="Phone"
