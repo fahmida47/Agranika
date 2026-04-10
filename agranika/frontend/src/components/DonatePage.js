@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import "./DonatePage.css";
 
-const API_BASE = process.env.REACT_APP_API_BASE_URL || "http://127.0.0.1:5004/api";
-
-const DonatePage = () => {
+const DonatePage = ({ goLogin }) => { // goLogin props theke asche nishchit houn
   const [amount, setAmount] = useState(2500);
   const [customAmount, setCustomAmount] = useState("");
   const [showForm, setShowForm] = useState(false);
@@ -11,7 +9,7 @@ const DonatePage = () => {
 
   const [formData, setFormData] = useState({
     name: "",
-    email: "",
+    email: "", // UI te email field thakle state e thaka bhalo
     phone: "",
   });
 
@@ -39,7 +37,21 @@ const DonatePage = () => {
     setAmount(val);
   };
 
+  const totalAmount =
+    Number(amount) +
+    gifts.bag * 500 +
+    gifts.pencil * 200 +
+    gifts.uniform * 1000;
+
+  // 🔐 1st Check: Login kora ache ki na
   const handleDonateClick = () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("❌ Please login first to make a donation.");
+      if (goLogin) goLogin(); 
+      return;
+    }
+
     if (!amount || amount <= 0) {
       alert("Enter valid amount");
       return;
@@ -47,15 +59,9 @@ const DonatePage = () => {
     setShowForm(true);
   };
 
-  const totalAmount =
-    Number(amount) +
-    gifts.bag * 500 +
-    gifts.pencil * 200 +
-    gifts.uniform * 1000;
-
   // 🔐 JWT Protected Submission
   const handleFinalSubmit = async () => {
-    if (!formData.name || !formData.email || !formData.phone) {
+    if (!formData.name || !formData.phone) {
       alert("Fill all fields!");
       return;
     }
@@ -67,17 +73,17 @@ const DonatePage = () => {
 
     try {
       const token = localStorage.getItem("token");
-      const headers = { "Content-Type": "application/json" };
-      if (token) {
-        headers["Authorization"] = `Bearer ${token}`;
-      }
-
-      const res = await fetch(`${API_BASE}/donation/donate`, {
+      
+      const res = await fetch("http://localhost:5004/api/donation/donate", { 
         method: "POST",
-        credentials: "include",
-        headers,
+        credentials: "include", 
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}` 
+        },
         body: JSON.stringify({
-          ...formData,
+          name: formData.name,
+          phone: formData.phone,
           amount: totalAmount,
           paymentMethod,
           gifts,
@@ -89,8 +95,6 @@ const DonatePage = () => {
       if (res.ok) {
         alert("✅ Donation successful! Thank you ❤️");
         setShowForm(false);
-
-        // Reset form
         setFormData({ name: "", email: "", phone: "" });
         setAmount(2500);
         setCustomAmount("");
@@ -113,24 +117,15 @@ const DonatePage = () => {
       {/* Amount */}
       <div className="donation-container">
         <div className="donation-amounts">
-          <button
-            className={amount === 500 ? "active" : ""}
-            onClick={() => handleAmountClick(500)}
-          >
-            500 BDT
-          </button>
-          <button
-            className={amount === 2500 ? "active" : ""}
-            onClick={() => handleAmountClick(2500)}
-          >
-            2500 BDT
-          </button>
-          <button
-            className={amount === 5000 ? "active" : ""}
-            onClick={() => handleAmountClick(5000)}
-          >
-            5000 BDT
-          </button>
+          {[500, 2500, 5000].map((val) => (
+            <button
+              key={val}
+              className={amount === val ? "active" : ""}
+              onClick={() => handleAmountClick(val)}
+            >
+              {val} BDT
+            </button>
+          ))}
           <input
             type="number"
             placeholder="Custom"
@@ -144,11 +139,9 @@ const DonatePage = () => {
       <div className="gift-section">
         <h3>Select Gift Items</h3>
         <div className="gift-cards">
+          {/* Bag */}
           <div className="gift-card">
-            <img
-              src="https://cdn-icons-png.flaticon.com/128/11258/11258861.png"
-              alt="School Bag"
-            />
+            <img src="https://cdn-icons-png.flaticon.com/128/11258/11258861.png" alt="Bag" />
             <p>School Bag (500 BDT)</p>
             <div className="qty">
               <button onClick={() => updateGift("bag", gifts.bag - 1)}>-</button>
@@ -156,12 +149,9 @@ const DonatePage = () => {
               <button onClick={() => updateGift("bag", gifts.bag + 1)}>+</button>
             </div>
           </div>
-
+          {/* Pencil */}
           <div className="gift-card">
-            <img
-              src="https://cdn-icons-png.flaticon.com/128/4100/4100658.png"
-              alt="Pencil Box"
-            />
+            <img src="https://cdn-icons-png.flaticon.com/128/4100/4100658.png" alt="Pencil" />
             <p>Pencil Box (200 BDT)</p>
             <div className="qty">
               <button onClick={() => updateGift("pencil", gifts.pencil - 1)}>-</button>
@@ -169,12 +159,9 @@ const DonatePage = () => {
               <button onClick={() => updateGift("pencil", gifts.pencil + 1)}>+</button>
             </div>
           </div>
-
+          {/* Uniform */}
           <div className="gift-card">
-            <img
-              src="https://cdn-icons-png.flaticon.com/128/2103/2103475.png"
-              alt="School Uniform"
-            />
+            <img src="https://cdn-icons-png.flaticon.com/128/2103/2103475.png" alt="Uniform" />
             <p>School Uniform (1000 BDT)</p>
             <div className="qty">
               <button onClick={() => updateGift("uniform", gifts.uniform - 1)}>-</button>
@@ -183,66 +170,39 @@ const DonatePage = () => {
             </div>
           </div>
         </div>
-        <p>Total Gifts: {gifts.bag*500 + gifts.pencil*200 + gifts.uniform*1000} BDT</p>
+        <p>Total Gifts: {gifts.bag * 500 + gifts.pencil * 200 + gifts.uniform * 1000} BDT</p>
       </div>
 
-      {/* Donate Button */}
       <button className="donate-btn" onClick={handleDonateClick}>
         Donate {totalAmount} BDT
       </button>
 
-      {/* Donation Form */}
       {showForm && (
         <div className="donation-form">
           <h2>Donor Info</h2>
-
           <input
             type="text"
             placeholder="Name"
             value={formData.name}
-            onChange={(e) =>
-              setFormData({ ...formData, name: e.target.value })
-            }
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
             required
           />
-          <input
-            type="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={(e) =>
-              setFormData({ ...formData, email: e.target.value })
-            }
-            required
-          />
+          
           <input
             type="text"
             placeholder="Phone"
             value={formData.phone}
-            onChange={(e) =>
-              setFormData({ ...formData, phone: e.target.value })
-            }
+            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
             required
           />
 
           <h3>Payment</h3>
           <div className="payment-methods">
-            <button
-              className={paymentMethod === "bkash" ? "active" : ""}
-              onClick={() => setPaymentMethod("bkash")}
-            >
-              bKash
-            </button>
-            <button
-              className={paymentMethod === "nagad" ? "active" : ""}
-              onClick={() => setPaymentMethod("nagad")}
-            >
-              Nagad
-            </button>
+            <button className={paymentMethod === "bkash" ? "active" : ""} onClick={() => setPaymentMethod("bkash")}>bKash</button>
+            <button className={paymentMethod === "nagad" ? "active" : ""} onClick={() => setPaymentMethod("nagad")}>Nagad</button>
           </div>
 
-          <button className="submit-btn" onClick={handleFinalSubmit}>
-            Confirm Donation
-          </button>
+          <button className="submit-btn" onClick={handleFinalSubmit}>Confirm Donation</button>
         </div>
       )}
     </div>

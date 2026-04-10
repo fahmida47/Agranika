@@ -1,40 +1,34 @@
-// controllers/DonationController.js
 import Donation from "../Models/Donation.js";
-import jwt from "jsonwebtoken";
 
-// JWT middleware
-export const authenticateToken = (req, res, next) => {
-  const token = req.cookies.token || req.headers["authorization"]?.split(" ")[1];
-  if (!token) return res.status(401).json({ message: "Access denied. No token provided." });
-
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
-    next();
-  } catch (err) {
-    return res.status(401).json({ message: "Invalid token." });
-  }
-};
-
-// Create donation
+// Create donation (Login Required)
 export const createDonation = async (req, res) => {
   try {
-    const { name, email, phone, amount, gifts } = req.body;
+    // req.body theke name, phone, amount, gifts nibo (email nibo na login theke pabo bole)
+    const { name, phone, amount, gifts } = req.body;
+
+    // 1. Check user login (Safety check, middleware thakle eita auto verify hobe)
+    if (!req.user) {
+      return res.status(401).json({ message: "Access denied. Please login to donate." });
+    }
 
     const donationData = {
       name,
-      email,
+      email: req.user.email, // 🔐 Automatically login kora user-er email bose jabe
       phone,
       amount,
       gifts,
-      userId: req.user?.id || null,
+      userId: req.user.id,    // 🔐 User ID-o save hobe
     };
 
     const donation = new Donation(donationData);
     await donation.save();
 
-    return res.status(201).json({ message: "Donation saved successfully!", donation });
+    return res.status(201).json({ 
+      message: "✅ Donation recorded successfully! Thank you for your support.", 
+      donation 
+    });
   } catch (err) {
+    console.error("Donation Error:", err.message);
     return res.status(500).json({ message: err.message });
   }
 };

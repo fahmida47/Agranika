@@ -1,10 +1,10 @@
 import express from "express";
 import { createSponsor } from "../Controllers/SponsorshipController.js";
-import authenticateToken from "../Middlewares/authMiddleware.js";
+import checkToken from "../Middlewares/authMiddleware.js"; // Middleware import koren
 
 const router = express.Router();
 
-// ei route e token optional, jodi login thake
-router.post("/sponsors", authenticateToken, createSponsor);
+// 🛑 POST request-er age checkToken boshiye dilam
+router.post("/sponsor", checkToken, createSponsor);
 
 export default router;

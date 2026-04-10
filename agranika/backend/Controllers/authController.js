@@ -1,79 +1,66 @@
-// controllers/authController.js
 import User from "../Models/User.js";
-import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { comparePassword, hashPassword } from "../Utils/db.js";
 
-// Helper functions
-export const hashPassword = async (password) => {
-  const salt = await bcrypt.genSalt(10);
-  return await bcrypt.hash(password, salt);
-};
+// Lifetime constant (3600000 = 1 hour)
+const lifetime = 3600000; 
 
-export const comparePassword = async (password, hashedPassword) => {
-  return await bcrypt.compare(password, hashedPassword);
-};
-
-// JWT lifetime
-const lifetime = 3600000; // 1 hour in milliseconds
-
-// Signup
+// --- SIGNUP ---
 export const signup = async (req, res) => {
   try {
-    const { name, phone, email, password } = req.body;
+    const { name, email, password ,phone} = req.body;
 
+    // 1. User check
     const existingUser = await User.findOne({ email });
     if (existingUser) {
-      return res.status(409).json({ message: "Email already in use" });
+      return res.status(409).json({ message: "Email already in use." });
     }
 
+    // 2. Manual Hashing (Jehetu Model theke pre-save hook bad diyechen)
     const hashedPassword = await hashPassword(password);
 
-    const newUser = new User({
-      name,
+    // 3. User Save
+    const newUser = new User({ 
+      name, 
+      email, 
       phone,
-      email,
-      password: hashedPassword,
+      password,
     });
-
     await newUser.save();
 
-    const token = jwt.sign(
-      { id: newUser._id, email: newUser.email },
-      process.env.JWT_SECRET,
-      { expiresIn: lifetime }
-    );
-
-    res.cookie("token", token, {
-      maxAge: lifetime,
-      httpOnly: true,
-      secure: false,
-      sameSite: "lax",
-      path: "/",
-    });
-
     return res.status(201).json({
-      _id: newUser._id,
-      name: newUser.name,
-      phone: newUser.phone,
-      email: newUser.email,
-      token,
+      message: "Signup successful! Please login to continue.",
+      user: {
+        _id: newUser._id,
+        name: newUser.name,
+        email: newUser.email,
+        phone: newUser.phone,
+      }
     });
-  } catch (err) {
-    return res.status(500).json({ message: err.message });
+  } catch (error) {
+    return res.status(500).json({ message: error.message });
   }
 };
 
-// Login
+// --- LOGIN ---
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
+    console.log("--- Login Attempt ---");
+    console.log("Email:", email);
 
     const user = await User.findOne({ email });
     if (!user) {
+      console.log("User not found in DB");
       return res.status(404).json({ message: "User not found" });
     }
 
+    // DEBUG: Terminal-e dekhun password match korche kina
     const isPassEqual = await comparePassword(password, user.password);
+    console.log("Entered Password:", password);
+    console.log("DB Hashed Password:", user.password);
+    console.log("Match Status:", isPassEqual);
+
     if (!isPassEqual) {
       return res.status(400).json({ message: "Wrong password" });
     }
@@ -81,30 +68,31 @@ export const login = async (req, res) => {
     const token = jwt.sign(
       { id: user._id, email: user.email },
       process.env.JWT_SECRET,
-      { expiresIn: lifetime }
+      { expiresIn: "1h" }
     );
 
     res.cookie("token", token, {
       maxAge: lifetime,
       httpOnly: true,
-      secure: false,
+      secure: false, // Localhost-er jonno false thaka dorkar
       sameSite: "lax",
       path: "/",
     });
 
     return res.status(200).json({
+      message: "Login successful",
       _id: user._id,
       name: user.name,
-      phone: user.phone,
       email: user.email,
       token,
     });
-  } catch (err) {
-    return res.status(500).json({ message: err.message });
+  } catch (error) {
+    console.error("Login Error:", error.message);
+    return res.status(500).json({ message: error.message });
   }
 };
 
-// Logout
+// --- LOGOUT ---
 export const logout = (req, res) => {
   res.clearCookie("token", {
     httpOnly: true,

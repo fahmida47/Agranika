@@ -1,9 +1,10 @@
 import express from "express";
-import { createDonation, authenticateToken } from "../Controllers/donationController.js";
+import { createDonation } from "../Controllers/donationController.js";
+import checkToken from "../Middlewares/authMiddleware.js"; // Middleware import koren
 
 const router = express.Router();
 
-// Optional: login required
-router.post("/donate", authenticateToken, createDonation);
+// POST /api/donation/create (Ekhane checkToken must)
+router.post("/donate", checkToken, createDonation);
 
 export default router;

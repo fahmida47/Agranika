@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Login.css";
 import bg from "../images/1stbg.jpg.jpeg";
 
-const API_BASE = process.env.REACT_APP_API_BASE_URL || "http://127.0.0.1:5004/api";
+
 
 function Login({ toggleSignup, goForgot, goHome }) {
   const [formData, setFormData] = useState({
@@ -24,7 +24,7 @@ function Login({ toggleSignup, goForgot, goHome }) {
     setMessage("Logging in...");
 
     try {
-      const response = await fetch(`${API_BASE}/auth/login`, {
+      const response = await fetch("http://localhost:5004/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include", // cookie support
