@@ -104,6 +104,33 @@
   color: #3d4150;
 }
 
+.join-us-wrapper {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.join-us-btn {
+  background: #e5ab22;
+  color: white;
+  border: none;
+  padding: 14px 34px;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.join-us-btn:hover {
+  background: #cf9718;
+}
+
+.join-us-btn:focus,
+.join-us-btn:active {
+  outline: none;
+  box-shadow: none;
+}
+
 @media (max-width: 768px) {
   .volunteer-title {
     font-size: 40px;
@@ -117,5 +144,10 @@
   .volunteer-card {
     width: 100%;
     max-width: 340px;
+  }
+
+  .join-us-btn {
+    font-size: 16px;
+    padding: 12px 28px;
   }
 }
