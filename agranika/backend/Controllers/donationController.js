@@ -48,3 +48,14 @@ export const getDonationHistory = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
+
+export const getAllDonationsForAdmin = async (req, res) => {
+  try {
+   
+    const allDonations = await Donation.find().sort({ createdAt: -1 });
+    
+    res.status(200).json(allDonations);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};

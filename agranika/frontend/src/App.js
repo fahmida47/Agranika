@@ -17,6 +17,7 @@ import Contact from "./components/Contact";
 import Sponsor from "./components/Sponsor";
 import SponsorPage from "./components/SponsorPage";
 import { SponsorProvider } from "./components/SponsorContext";
+import AdminDashboard from "./components/AdminDashboard";
 
 
 
@@ -46,7 +47,8 @@ function App() {
     "volunteer",
     "contact",
     "sponsorPage",
-    "sponsor"
+    "sponsor",
+    "admin"
    
   ].includes(page);
 
@@ -61,7 +63,20 @@ function App() {
     setPage(pageKey);
   };
 
-  // Smooth scroll functions for main page sections
+  
+  const adminGoToPage = () => {
+    const token = localStorage.getItem("token");
+    const user = JSON.parse(localStorage.getItem("user")); 
+
+    if (!token || user?.role !== "admin") {
+      alert("Access Denied! Admins Only.");
+      setPage("home");
+      return;
+    }
+    setPage("admin");
+  };
+
+ 
   const goHome = () => {
     setPage("home");
     setTimeout(() => {
@@ -83,6 +98,7 @@ function App() {
   const goContact = () => setPage("contact");
   const goSponsorPage = () => protectedGoToPage("sponsorPage");
   const goSponsor = () => setPage("sponsor"); 
+  const goAdmin = () => adminGoToPage();
   
 
   return (
@@ -98,6 +114,7 @@ function App() {
           goContact={goContact}
           goSponsorPage={goSponsorPage} 
           goSponsor={goSponsor}
+          goAdmin={goAdmin}
         />
       )}
 
@@ -113,7 +130,6 @@ function App() {
       {page === "signup" && <Signup toggleLogin={() => setPage("login")} />}
       {page === "forgot" && <ForgotPassword toggleLogin={() => setPage("login")} />}
 
-      {/* Home / Mission sections */}
       {page === "home" && (
         <>
           <div id="home-section">
@@ -138,6 +154,7 @@ function App() {
 
       
       {page === "contact" && <Contact />}
+      {page === "admin" && <AdminDashboard />}
 
      
       {["education", "digital", "environment"].includes(page) && (

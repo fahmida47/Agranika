@@ -36,6 +36,12 @@ function Login({ toggleSignup, goForgot, goHome }) {
       if (response.ok) {
         setMessage("✅ Login successful!");
         localStorage.setItem("token", data.token || ""); 
+        localStorage.setItem("user", JSON.stringify({
+          _id: data._id,
+          name: data.name,
+          email: data.email,
+          role: data.role 
+        }));
 
         setTimeout(() => {
           goHome();

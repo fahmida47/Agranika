@@ -2,8 +2,13 @@ import React, { useState } from "react";
 import "./navbar.css";
 import logo from "../assets1/Logo2-removebg.png";
 
-function Navbar({ goHome, goMission,goFocus,goTeam, goContact,goDonate,goSponsorPage }) {
+function Navbar({ goHome, goMission, goFocus, goTeam, goContact, goDonate, goSponsorPage, goAdmin }) {
   const [showAboutDropdown, setShowAboutDropdown] = useState(false);
+
+  // LocalStorage theke user info nawa hochche
+  const user = JSON.parse(localStorage.getItem("user"));
+  const isAdmin = user && user.role === "admin";
+
   return (
     <header className="navbar">
       <div className="logo-box">
@@ -34,8 +39,15 @@ function Navbar({ goHome, goMission,goFocus,goTeam, goContact,goDonate,goSponsor
             </div>
           )}
         </div>
+
         <button onClick={goDonate}>Donate</button>
-        
+
+        {/* --- Admin Button: Shudhu Admin login thakle dekhabe --- */}
+        {isAdmin && (
+          <button className="admin-nav-btn" onClick={goAdmin} style={{ color: "#000000", fontWeight: "bold" }}>
+            Dashboard ⚙️
+          </button>
+        )}
       </div>
 
       <div className="nav-right">

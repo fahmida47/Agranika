@@ -55,8 +55,8 @@ function Contact({ goLogin }) {
       const data = await res.json();
 
       if (res.ok) {
-        alert("✅ " + (data.message || "Message sent successfully!"));
-        setForm({ name: "", phone: "", message: "" }); // ফর্ম ক্লিয়ার
+        alert( (data.message || "✅ Message sent successfully!"));
+        setForm({ name: "", phone: "", message: "" }); 
       } else {
         alert("❌ " + (data.message || "Failed to send message"));
         if (res.status === 401 && goLogin) goLogin();
