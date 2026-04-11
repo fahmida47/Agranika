@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./navbar.css";
 import logo from "../assets1/Logo2-removebg.png";
 
-function Navbar({ goHome, goMission, goFocus, goTeam, goContact, goDonate, goSponsorPage, goAdmin }) {
+function Navbar({ goHome, goMission, goFocus, goTeam, goContact, goDonate, goSponsorPage, goAdmin,goProfile  }) {
   const [showAboutDropdown, setShowAboutDropdown] = useState(false);
 
   // LocalStorage theke user info nawa hochche
@@ -41,8 +41,9 @@ function Navbar({ goHome, goMission, goFocus, goTeam, goContact, goDonate, goSpo
         </div>
 
         <button onClick={goDonate}>Donate</button>
+        <button onClick={goProfile}>Profile</button>
 
-        {/* --- Admin Button: Shudhu Admin login thakle dekhabe --- */}
+      
         {isAdmin && (
           <button className="admin-nav-btn" onClick={goAdmin} style={{ color: "#000000", fontWeight: "bold" }}>
             Dashboard ⚙️

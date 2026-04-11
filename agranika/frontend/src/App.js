@@ -18,6 +18,7 @@ import Sponsor from "./components/Sponsor";
 import SponsorPage from "./components/SponsorPage";
 import { SponsorProvider } from "./components/SponsorContext";
 import AdminDashboard from "./components/AdminDashboard";
+import Profile from "./components/Profile";
 
 
 
@@ -48,7 +49,8 @@ function App() {
     "contact",
     "sponsorPage",
     "sponsor",
-    "admin"
+    "admin",
+    "profile"
    
   ].includes(page);
 
@@ -99,6 +101,7 @@ function App() {
   const goSponsorPage = () => protectedGoToPage("sponsorPage");
   const goSponsor = () => setPage("sponsor"); 
   const goAdmin = () => adminGoToPage();
+  const goProfile = () => protectedGoToPage("profile");
   
 
   return (
@@ -115,6 +118,7 @@ function App() {
           goSponsorPage={goSponsorPage} 
           goSponsor={goSponsor}
           goAdmin={goAdmin}
+          goProfile={goProfile}
         />
       )}
 
@@ -155,6 +159,7 @@ function App() {
       
       {page === "contact" && <Contact />}
       {page === "admin" && <AdminDashboard />}
+      {page === "profile" && <Profile />}
 
      
       {["education", "digital", "environment"].includes(page) && (
