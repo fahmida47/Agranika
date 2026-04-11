@@ -88,9 +88,9 @@
 
 /* Form */
 .donation-form {
-  margin-top: 30px;
-  background: white;
-  padding: 20px;
+  margin-top: 40px;
+  background: rgba(251, 232, 192, 0.688);
+  padding: 30px;
   border-radius: 10px;
 }
 
@@ -109,7 +109,7 @@
 .payment-methods button {
   flex: 1;
   padding: 10px;
-  border: 2px solid rgba(0, 0, 0, 0.793);
+  border: 2px solid rgba(86, 86, 86, 0.505);
   background: white;
 }
 
@@ -120,7 +120,7 @@
 
 .submit-btn {
   margin-top: 10px;
-  width: 100%;
+  width: 40%;
   padding: 12px;
   background: green;
   color: white;

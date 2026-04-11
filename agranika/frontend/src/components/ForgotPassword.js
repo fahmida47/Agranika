@@ -23,7 +23,7 @@ function ForgotPassword({ toggleLogin }) {
     setMessage("Sending reset link...");
 
     try {
-      const response = await fetch('http://localhost:5002/api/forgot-password', {
+      const response = await fetch('http://localhost:5004/api/forgot-password', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
