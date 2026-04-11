@@ -6,6 +6,7 @@ import Mission from "./components/mission";
 import TeamPage from "./components/TeamPage";
 import VolunteerPage from "./components/VolunteerPage";
 import Contact from "./components/Contact";
+import Profile from "./components/Profile";
 
 function App() {
   const [currentPage, setCurrentPage] = useState("main");
@@ -47,6 +48,11 @@ function App() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
+  const goProfile = () => {
+    setCurrentPage("profile");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   return (
     <div className="app-wrapper">
       <Navbar
@@ -54,6 +60,7 @@ function App() {
         goMission={goMission}
         goTeam={goTeam}
         goContact={goContact}
+        goProfile={goProfile}
       />
 
       {currentPage === "main" && (
@@ -73,6 +80,8 @@ function App() {
       {currentPage === "volunteer" && <VolunteerPage />}
 
       {currentPage === "contact" && <Contact />}
+
+      {currentPage === "profile" && <Profile />}
     </div>
   );
 }

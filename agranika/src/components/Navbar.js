@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./navbar.css";
 import logo from "../assets1/Logo2.png";
 
-function Navbar({ goHome, goMission, goTeam, goContact }) {
+function Navbar({ goHome, goMission, goTeam, goContact, goProfile }) {
   const [showAboutDropdown, setShowAboutDropdown] = useState(false);
 
   return (
@@ -37,6 +37,7 @@ function Navbar({ goHome, goMission, goTeam, goContact }) {
         </div>
 
         <button>Donate</button>
+        <button onClick={goProfile}>Profile</button>
       </div>
 
       <div className="nav-right">
