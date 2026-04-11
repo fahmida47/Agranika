@@ -1,0 +1,23 @@
+.history-page { padding: 40px; text-align: center; }
+.table-container { overflow-x: auto; margin-top: 20px; }
+.history-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.history-table th, .history-table td {
+  padding: 15px;
+  border: 1px solid #eee;
+  text-align: center;
+}
+.history-table th { background-color: #4CAF50; color: white; }
+.amt-cell { font-weight: bold; color: #2e7d32; }
+.badge {
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+.bkash { background: #e2136e; color: white; }
+.nagad { background: #f34123; color: white; }

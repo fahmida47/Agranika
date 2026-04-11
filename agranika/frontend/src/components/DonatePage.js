@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import "./DonatePage.css";
+import DonationHistory from "./DonationHistory";
 
 const DonatePage = ({ goLogin }) => { 
   const [amount, setAmount] = useState(2500);
   const [customAmount, setCustomAmount] = useState("");
   const [showForm, setShowForm] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("");
+  const [viewHistory, setViewHistory] = useState(false); 
 
   const [formData, setFormData] = useState({
     name: "",
@@ -171,35 +173,54 @@ const DonatePage = ({ goLogin }) => {
         <p>Total Gifts: {gifts.bag * 500 + gifts.pencil * 200 + gifts.uniform * 1000} BDT</p>
       </div>
 
+
+      {/* History Toggle Button */}
+      <div style={{ marginTop: "30px", textAlign: "center" }}>
+        <button 
+          className="history-toggle-btn" 
+          onClick={() => setViewHistory(!viewHistory)}
+        >
+          {viewHistory ? "Hide My History" : "View My Donation History"}
+        </button>
+      </div>
+
+      {/* History List Rendering */}
+      {viewHistory && (
+        <div className="history-section">
+          <DonationHistory />
+        </div>
+      )}
       <button className="donate-btn" onClick={handleDonateClick}>
         Donate {totalAmount} BDT
       </button>
 
+      {/* Donation Form Modal */}
       {showForm && (
-        <div className="donation-form">
-          <h2>Donor Info</h2>
-          <input
-            type="text"
-            placeholder="Name"
-            value={formData.name}
-            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            required
-          />
-          <input
-            type="text"
-            placeholder="Phone"
-            value={formData.phone}
-            onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-            required
-          />
-
-          <h3>Payment</h3>
-          <div className="payment-methods">
-            <button className={paymentMethod === "bkash" ? "active" : ""} onClick={() => setPaymentMethod("bkash")}>bKash</button>
-            <button className={paymentMethod === "nagad" ? "active" : ""} onClick={() => setPaymentMethod("nagad")}>Nagad</button>
+        <div className="donation-form-overlay">
+          <div className="donation-form">
+            <h2>Donor Info</h2>
+            <input
+              type="text"
+              placeholder="Name"
+              value={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              required
+            />
+            <input
+              type="text"
+              placeholder="Phone"
+              value={formData.phone}
+              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+              required
+            />
+            <h3>Payment Method</h3>
+            <div className="payment-methods">
+              <button className={paymentMethod === "bkash" ? "active" : ""} onClick={() => setPaymentMethod("bkash")}>bKash</button>
+              <button className={paymentMethod === "nagad" ? "active" : ""} onClick={() => setPaymentMethod("nagad")}>Nagad</button>
+            </div>
+            <button className="submit-btn" onClick={handleFinalSubmit}>Confirm Donation</button>
+      
           </div>
-
-          <button className="submit-btn" onClick={handleFinalSubmit}>Confirm Donation</button>
         </div>
       )}
     </div>

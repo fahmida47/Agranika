@@ -32,3 +32,19 @@ export const createDonation = async (req, res) => {
     return res.status(500).json({ message: err.message });
   }
 };
+
+// Get all donations for the logged-in user
+export const getDonationHistory = async (req, res) => {
+  try {
+    if (!req.user) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+
+    // find({ userId: req.user.id }) diye shudhu oi user-er data-gulo ana hochche
+    const history = await Donation.find({ userId: req.user.id }).sort({ createdAt: -1 });
+
+    res.status(200).json(history);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};

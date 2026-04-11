@@ -125,3 +125,28 @@
   background: green;
   color: white;
 }
+
+.history-toggle-btn {
+  background-color: #6c757d;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s;
+}
+
+.history-toggle-btn:hover {
+  background-color: #65685a;
+}
+
+.history-section {
+  margin-top: 40px;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
