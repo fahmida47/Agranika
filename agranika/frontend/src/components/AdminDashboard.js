@@ -43,7 +43,7 @@ const AdminDashboard = () => {
     <div className="admin-dashboard-container">
       <h1>📊 Admin Control Panel</h1>
       
-      {/* 1. Stats Cards */}
+   
       <div className="stats-row">
         <div className="card">
           <h3>Total Users</h3>
@@ -51,16 +51,16 @@ const AdminDashboard = () => {
         </div>
         <div className="card">
           <h3>Total Donations</h3>
-          {/* Note: Backend e 'totalDonationAmount' ba 'totalDonations' thakle sheta ekhane likhun */}
+          
           <p>{data.stats.totalDonationAmount || 0} BDT</p>
         </div>
         <div className="card">
-          <h3>Children</h3>
-          <p>{data.stats.totalChildren}</p>
-        </div>
+  <h3>Sponsored Children</h3>
+  <p>{data.stats.sponsoredChildrenCount || 0}</p> 
+</div>
       </div>
 
-      {/* 2. Donation Monitor */}
+    
       <h2>💰 Donation Monitor</h2>
       <div className="table-wrapper">
         <table className="admin-table">

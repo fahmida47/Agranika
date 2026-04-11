@@ -159,7 +159,9 @@ function App() {
       
       {page === "contact" && <Contact />}
       {page === "admin" && <AdminDashboard />}
-      {page === "profile" && <Profile />}
+      {page === "profile" && (
+          <Profile goSponsor={() => setPage("sponsor")} />
+)}
 
      
       {["education", "digital", "environment"].includes(page) && (

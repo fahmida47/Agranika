@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "./Profile.css";
 import coverImage from "../assets1/child-cover.jpeg";
 
-function Profile() {
+function Profile({goSponsor}) {
   const [searchAge, setSearchAge] = useState("");
 
   const childrenProfiles = [
@@ -79,6 +79,12 @@ function Profile() {
               <p><strong>Age:</strong> {child.age}</p>
               <p><strong>Class:</strong> {child.className}</p>
               <p><strong>Gender:</strong> {child.gender}</p>
+              <button 
+            className="sponsor-now-btn"
+            onClick={goSponsor} 
+          >
+            Sponsor {child.name}
+          </button>
             </div>
           ))
         ) : (
