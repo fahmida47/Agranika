@@ -46,6 +46,7 @@ function App() {
     "volunteer",
     "contact",
     "sponsorPage",
+    "sponsor"
    
   ].includes(page);
 
@@ -96,6 +97,7 @@ function App() {
           goTeam={goTeam}
           goContact={goContact}
           goSponsorPage={goSponsorPage} 
+          goSponsor={goSponsor}
         />
       )}
 

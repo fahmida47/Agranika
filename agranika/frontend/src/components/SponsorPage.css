@@ -177,8 +177,8 @@ html {
   margin: 25px auto 0 auto; /* top 25px, horizontal center */
   padding: 14px 30px;
   border: none;
-  background: rgb(129, 204, 158);
-  color: white;
+  background: rgb(250, 225, 38);
+  color: rgb(0, 0, 0);
   border-radius: 8px;
   cursor: pointer;
   font-weight: 600;
@@ -186,7 +186,7 @@ html {
 }
 
 .sponsor-card button:hover {
-  background: rgb(90, 180, 140);
+  background: rgb(216, 171, 4);
   transform: translateY(-3px);
 }
 /* ANIMATION */

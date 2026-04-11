@@ -2,7 +2,6 @@ import React, { useState, useRef, useContext, useEffect } from "react";
 import bgImage from "../assets/Bg2.webp";
 import { SponsorContext } from "./SponsorContext";
 
-// API URL ta nishchit hoye naben (server.js e jeta thik korechilam)
 const API_URL = "http://localhost:5004/api/sponsors/sponsor";
 
 function Sponsor({ goLogin }) {
@@ -20,7 +19,6 @@ function Sponsor({ goLogin }) {
     interval: ""
   });
 
-  // Check login on load
   useEffect(() => {
     
     if (!localStorage.getItem("token")) {

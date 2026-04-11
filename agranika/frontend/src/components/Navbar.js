@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./navbar.css";
-import logo from "../assets1/Logo2.png";
+import logo from "../assets1/Logo2-removebg.png";
 
 function Navbar({ goHome, goMission,goFocus,goTeam, goContact,goDonate,goSponsorPage }) {
   const [showAboutDropdown, setShowAboutDropdown] = useState(false);
