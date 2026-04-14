@@ -1,7 +1,7 @@
 import User from "../Models/User.js";
 import Donation from "../Models/Donation.js";
 import Child from "../Models/Child.js"; 
-import Sponsor from "../Models/Sponsor.js"; 
+import Sponsor from "../Models/Sponsorship.js"; 
 
 export const getAdminDashboardStats = async (req, res) => {
   try {

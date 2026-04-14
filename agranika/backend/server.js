@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import mongoose from "mongoose";
+import { carbonMiddleware } from './Middlewares/carbonMiddleware.js';
 
 
 import authRoutes from "./Routes/authRoutes.js";
@@ -30,6 +31,7 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
+app.use(carbonMiddleware);
 
 
 app.use("/api/auth", authRoutes);

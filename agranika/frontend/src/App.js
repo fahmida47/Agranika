@@ -19,6 +19,7 @@ import SponsorPage from "./components/SponsorPage";
 import { SponsorProvider } from "./components/SponsorContext";
 import AdminDashboard from "./components/AdminDashboard";
 import Profile from "./components/Profile";
+import CarbonFootprintDisplay from "./components/CarbonFootprint";
 
 
 
@@ -105,6 +106,7 @@ function App() {
   
 
   return (
+    
     <SponsorProvider>
     <div className="app-wrapper">
       {showNavbar && (
@@ -176,6 +178,8 @@ function App() {
      
         {page === "sponsorPage" && <SponsorPage goSponsor={goSponsor} />}
         {page === "sponsor" && <Sponsor />}
+
+        <CarbonFootprintDisplay />
     </div>
     </SponsorProvider>
   );

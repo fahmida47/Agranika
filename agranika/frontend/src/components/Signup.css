@@ -1,59 +1,97 @@
 .signup-container {
-  width: 100%;
   height: 100vh;
-  background-size: cover;
-  background-position: center;
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: #f4f7f6;
+  margin: 0;
+  overflow: hidden;
 }
 
-.signup-box {
-  background-color: rgba(0, 0, 0, 0.6); /* dark translucent background */
+.signup-content {
+  display: flex;
+  width: 900px; /* কার্ড লেআউট */
+  height: 600px; 
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+  overflow: hidden;
+}
+
+.form-side {
+  flex: 1.2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   padding: 40px;
-  border-radius: 10px;
-  width: 350px;
-  text-align: center;
-  color: #fff;
+  background: #ffffff;
 }
 
-.signup-header h1 {
-  margin-bottom: 30px;
-  font-size: 32px;
-  letter-spacing: 2px;
+.form-wrapper {
+  width: 100%;
+  max-width: 350px;
+  text-align: center;
+}
+
+.form-wrapper h1 {
+  font-size: 28px;
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.form-wrapper p {
+  margin-bottom: 25px;
+  color: #777;
 }
 
 .signup-form input {
   width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border-radius: 5px;
-  border: none;
-  font-size: 16px;
+  padding: 14px;
+  margin-bottom: 12px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-sizing: border-box;
 }
 
-.signup-form button {
+
+.submit-btn {
   width: 100%;
-  padding: 12px;
-  margin-top: 15px;
-  border: none;
-  border-radius: 5px;
-  background-color: #ffeb12; /* yellow button */
+  padding: 16px;
+  background: #a7f6a7 !important;
+  color: #000 !important;
+  border: none !important;
+  border-radius: 8px;
   font-weight: bold;
-  cursor: pointer;
   font-size: 16px;
-}
-
-.signup-form button:hover {
-  background-color: #e0a800;
-}
-
-.login-text {
-  margin-top: 15px;
-  font-size: 14px;
-}
-
-.login-link {
-  color: #00bfff;
   cursor: pointer;
+  margin-top: 10px;
+  transition: 0.3s;
 }
+
+.submit-btn:hover {
+  background: #76e076 !important;
+}
+
+.image-side {
+  flex: 1;
+  position: relative;
+}
+
+.image-side img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+}
+
+.image-side img.active {
+  opacity: 1;
+}
+
+.login-link { margin-top: 20px; font-size: 14px; }
+.login-link span { color: #0042f9; cursor: pointer; font-weight: bold; }
+.msg { margin-top: 10px; font-weight: bold; color: #333; }

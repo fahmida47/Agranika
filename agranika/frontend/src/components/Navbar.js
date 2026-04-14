@@ -5,7 +5,6 @@ import logo from "../assets1/Logo2-removebg.png";
 function Navbar({ goHome, goMission, goFocus, goTeam, goContact, goDonate, goSponsorPage, goAdmin,goProfile  }) {
   const [showAboutDropdown, setShowAboutDropdown] = useState(false);
 
-  // LocalStorage theke user info nawa hochche
   const user = JSON.parse(localStorage.getItem("user"));
   const isAdmin = user && user.role === "admin";
 

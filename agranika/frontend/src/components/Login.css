@@ -1,120 +1,122 @@
-/* Full screen background */
-.login-container {
+.unique-login-container {
+  display: flex;
   height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background: #c5f8cb;
+}
+
+
+.login-image-section {
+  flex: 1;
+  position: relative;
+  background: #000;
+}
+
+.login-image-section img {
+  position: absolute;
   width: 100%;
-  background-size: cover;
-  background-position: center;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.5s ease;
+}
+
+.login-image-section img.active {
+  opacity: 0.7; 
+}
+
+.image-overlay-text {
+  position: absolute;
+  bottom: 10%;
+  left: 10%;
+  color: white;
+  z-index: 5;
+}
+
+.image-overlay-text h2 { font-size: 40px; margin-bottom: 10px; }
+
+
+.login-form-section {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-family: Georgia, serif; /* same as signup page */
+  background: #f9f9f9;
 }
 
-/* Login box */
-.login-box {
-  background-color: rgba(26, 25, 25, 0.366); /* match signup box */
-  padding: 40px;
-  border-radius: 10px;
-  width: 350px; /* match signup box */
-  text-align: center;
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.login-form-wrapper {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
 }
 
-/* Header */
-.login-header h1 {
-  font-size: 32px;      /* match signup header */
+.login-form-wrapper h1 {
+  font-size: 32px;
   margin-bottom: 30px;
+  color: #000000;
   letter-spacing: 2px;
 }
 
-.login-header h2 {
-  font-size: 18px;      /* optional subtitle */
+.input-group {
   margin-bottom: 20px;
-  letter-spacing: 1px;
-  font-weight: 400;
+  text-align: left;
 }
 
-/* Login form inputs */
-.login-form input {
+.input-group label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 8px;
+  color: #666;
+}
+
+.input-group input {
   width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border-radius: 5px;   /* match signup input */
-  border: none;          /* match signup input */
-  font-size: 16px;       /* same as signup */
-  background: rgb(250, 247, 247);
+  padding: 15px;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  background: #f9f9f9;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.forgot-pass {
+  text-align: right;
+  font-size: 13px;
   color: #000000;
-  padding-left: 12px;
+  cursor: pointer;
+  margin-top: -10px;
+  margin-bottom: 25px;
 }
 
-.login-form input::placeholder {
-  color: #000000aa;
-}
 
-/* Login button */
-.login-form button {
+.login-btn {
   width: 100%;
-  padding: 12px;
-  margin-top: 15px;
+  padding: 15px;
+  background: #a7f6a7; 
+  color: rgb(0, 0, 0);
   border: none;
-  border-radius: 5px;  /* match signup button */
-  background-color: #ffeb12; /* same yellow as signup */
+  border-radius: 5px;
   font-weight: bold;
   font-size: 16px;
   cursor: pointer;
   transition: 0.3s;
 }
 
-.login-form button:hover {
-  background-color: #e0a800; /* same hover as signup */
+.login-btn:hover {
+  background: #76e076;
+  transform: translateY(-2px);
 }
 
-/* Login bottom text */
-.login-text {
-  margin-top: 15px;
-  font-size: 14px;
-}
-
-.login-link {
-  color: #52a062;
-  cursor: pointer;
-}
-.forgot {
-  margin-top: 10px;
-  align-self: flex-end;
-  font-size: 0.85rem;
-  color: #ffffff;
-  cursor: pointer;
-}
-
-.signup {
-  margin-top: 15px;
+.no-account {
+  margin-top: 30px;
   text-align: center;
-  font-size: 0.85rem;
-  color: #ffffff;
+  font-size: 14px;
+  color: #000000;
 }
 
-.signup span {
-  color: #5396e2;
+.no-account span {
+  color: #322bee; 
   cursor: pointer;
-  font-weight: 600;
-}
-
-/* Responsive for mobile */
-@media (max-width: 768px) {
-  .login-box {
-    padding: 40px 30px;
-    width: 90%;
-  }
-
-  .login-header h1 {
-    font-size: 2rem;
-  }
-
-  .login-header h2 {
-    font-size: 1.2rem;
-  }
+  font-weight: bold;
 }
