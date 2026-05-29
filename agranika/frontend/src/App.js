@@ -21,67 +21,99 @@ import AdminDashboard from "./components/AdminDashboard";
 import Profile from "./components/Profile";
 import CarbonFootprintDisplay from "./components/CarbonFootprint";
 
-
-
 function App() {
-  const [page, setPage] = useState("intro");
+  const getInitialPage = () => {
+    const path = window.location.pathname.replace("/", "");
+    return path || "intro";
+  };
+
+  const [page, setPage] = useState(getInitialPage);
   const [fadeOut, setFadeOut] = useState(false);
 
-  useEffect(() => {
-    const timer1 = setTimeout(() => setFadeOut(true), 2500);
-    const timer2 = setTimeout(() => setPage("login"), 3500);
-    return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-    };
-  }, []);
+  
+  const navigateTo = (pageKey) => {
+    setPage(pageKey);
+    const newPath = pageKey === "intro" ? "/" : `/${pageKey}`;
+    
+ 
+    if (pageKey === "login" || pageKey === "signup") {
+      window.history.pushState({ page: pageKey }, "", newPath);
+    } else {
+      
+      window.history.replaceState({ page: pageKey }, "", newPath);
+    }
+  };
 
-  // Pages that show navbar
-  const showNavbar = [
-    "home",
-    "focus",
-    "mission",
-    "donate",
-    "education",
-    "digital",
-    "environment",
-    "team",
-    "volunteer",
-    "contact",
-    "sponsorPage",
-    "sponsor",
-    "admin",
-    "profile"
+
+  useEffect(() => {
+    const handlePopState = (event) => {
+      if (event.state && event.state.page) {
+        setPage(event.state.page);
+      } else {
+        
+        setPage("intro");
+      }
+    };
+
+    window.addEventListener("popstate", handlePopState);
+    
    
+    if (!window.history.state) {
+      window.history.replaceState({ page: "intro" }, "", "/");
+    }
+
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []); 
+
+ 
+  useEffect(() => {
+    if (page === "intro") {
+      const timer1 = setTimeout(() => setFadeOut(true), 2500);
+      const timer2 = setTimeout(() => {
+        setPage("login");
+        
+        window.history.replaceState({ page: "intro" }, "", "/");
+        window.history.pushState({ page: "login" }, "", "/login");
+      }, 3500);
+      return () => {
+        clearTimeout(timer1);
+        clearTimeout(timer2);
+      };
+    }
+  }, [page]);
+
+ 
+  const showNavbar = [
+    "home", "focus", "mission", "donate", "education", "digital",
+    "environment", "team", "volunteer", "contact", "sponsorPage",
+    "sponsor", "admin", "profile"
   ].includes(page);
 
-  const goToPage = (pageKey) => setPage(pageKey);
+  const goToPage = (pageKey) => navigateTo(pageKey);
 
   const protectedGoToPage = (pageKey) => {
     if (!localStorage.getItem("token")) {
       alert("Please login first to access this page.");
-      setPage("login");
+      navigateTo("login");
       return;
     }
-    setPage(pageKey);
+    navigateTo(pageKey);
   };
 
-  
   const adminGoToPage = () => {
     const token = localStorage.getItem("token");
     const user = JSON.parse(localStorage.getItem("user")); 
 
     if (!token || user?.role !== "admin") {
       alert("Access Denied! Admins Only.");
-      setPage("home");
+      navigateTo("home");
       return;
     }
-    setPage("admin");
+    navigateTo("admin");
   };
 
- 
   const goHome = () => {
-    setPage("home");
+    navigateTo("home");
     setTimeout(() => {
       const homeSection = document.getElementById("home-section");
       if (homeSection) homeSection.scrollIntoView({ behavior: "smooth" });
@@ -89,98 +121,120 @@ function App() {
   };
 
   const goMission = () => {
-    setPage("home");
+    navigateTo("home");
     setTimeout(() => {
       const missionSection = document.getElementById("mission-section");
       if (missionSection) missionSection.scrollIntoView({ behavior: "smooth" });
     }, 100);
   };
 
-  const goTeam = () => setPage("team");
-  const goVolunteer = () => setPage("volunteer");
-  const goContact = () => setPage("contact");
+  const goTeam = () => navigateTo("team");
+  const goVolunteer = () => navigateTo("volunteer");
+  const goContact = () => navigateTo("contact");
   const goSponsorPage = () => protectedGoToPage("sponsorPage");
-  const goSponsor = () => setPage("sponsor"); 
-  const goAdmin = () => adminGoToPage();
+  const goSponsor = () => navigateTo("sponsor"); 
+  const goAdmin = () => adminGoToPage(); 
   const goProfile = () => protectedGoToPage("profile");
-  
+
+  const handleLogout = async () => {
+    try {
+      await fetch("http://localhost:5004/api/auth/logout", { 
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include" 
+      });
+    } catch (error) {
+      console.error("Backend logout failed:", error);
+    }
+    localStorage.removeItem("user");
+    localStorage.removeItem("token"); 
+    navigateTo("login"); 
+  };
 
   return (
-    
     <SponsorProvider>
-    <div className="app-wrapper">
-      {showNavbar && (
-        <Navbar
-          goHome={goHome}
-          goMission={goMission}
-          goFocus={() => setPage("focus")}
-          goDonate={() => protectedGoToPage("donate")}
-          goTeam={goTeam}
-          goContact={goContact}
-          goSponsorPage={goSponsorPage} 
-          goSponsor={goSponsor}
-          goAdmin={goAdmin}
-          goProfile={goProfile}
-        />
-      )}
+      <div className="app-wrapper">
+        {showNavbar && (
+          <Navbar
+            goHome={goHome}
+            goMission={goMission}
+            goFocus={() => navigateTo("focus")}
+            goDonate={() => protectedGoToPage("donate")}
+            goTeam={goTeam}
+            goContact={goContact}
+            goSponsorPage={goSponsorPage} 
+            goSponsor={goSponsor}
+            goAdmin={goAdmin}
+            goProfile={goProfile}
+            goLogin={handleLogout}
+          />
+        )}
 
-     
-      {page === "intro" && <Intro fadeOut={fadeOut} />}
-      {page === "login" && (
-        <Login
-          toggleSignup={() => setPage("signup")}
-          goForgot={() => setPage("forgot")}
-          goHome={goHome}
-        />
-      )}
-      {page === "signup" && <Signup toggleLogin={() => setPage("login")} />}
-      {page === "forgot" && <ForgotPassword toggleLogin={() => setPage("login")} />}
+        {page === "intro" && <Intro fadeOut={fadeOut} />}
+        {page === "login" && (
+          <Login
+            toggleSignup={() => navigateTo("signup")}
+            goForgot={() => navigateTo("forgot")}
+            goHome={goHome}
+          />
+        )}
+        {page === "signup" && <Signup toggleLogin={() => navigateTo("login")} />}
+        {page === "forgot" && <ForgotPassword toggleLogin={() => navigateTo("login")} />}
 
-      {page === "home" && (
-        <>
-          <div id="home-section">
-            <HomePage goMission={goMission} goFocus={() => setPage("focus")} goDonate={() => protectedGoToPage("donate")} />
-          </div>
+        {page === "home" && (
+          <>
+            <div id="home-section">
+              <HomePage goMission={goMission} goFocus={() => navigateTo("focus")} goDonate={() => protectedGoToPage("donate")} />
+            </div>
+            <div id="mission-section">
+              <Mission goHome={goHome} goLogin={() => navigateTo("login")} />
+            </div>
+          </>
+        )}
 
-          <div id="mission-section">
-            <Mission goHome={goHome} goLogin={() => setPage("login")} />
-          </div>
-        </>
-      )}
+        {page === "focus" && <Focus goToPage={goToPage} />}
+        {page === "donate" && <DonatePage goHome={goHome} />}
+        {page === "team" && <TeamPage goVolunteer={goVolunteer} />}
+        {page === "volunteer" && <VolunteerPage />}
+        {page === "contact" && <Contact />}
+        {page === "admin" && <AdminDashboard />}
+        {page === "profile" && <Profile goSponsor={() => navigateTo("sponsor")} />}
+        {["education", "digital", "environment"].includes(page) && (
+  <div className="focus-detail-page fade-in">
+    
 
-      
-      {page === "focus" && <Focus goToPage={goToPage} />}
+    <div className="subpage-content">
+      <div className="detail-image-box">
+        {/* এখানে Optional Chaining (?) দিন */}
+        <img src={focusContent[page]?.img} alt={focusContent[page]?.title} className="subpage-img" />
+      </div>
 
-     
-      {page === "donate" && <DonatePage goHome={goHome} />}
+      <div className="detail-text-box">
+        <h2>{focusContent[page]?.title}</h2>
+        <p className="detail-desc">{focusContent[page]?.text}</p>
 
-     
-      {page === "team" && <TeamPage goVolunteer={goVolunteer} />}
-      {page === "volunteer" && <VolunteerPage />}
-
-      
-      {page === "contact" && <Contact />}
-      {page === "admin" && <AdminDashboard />}
-      {page === "profile" && (
-          <Profile goSponsor={() => setPage("sponsor")} />
-)}
-
-     
-      {["education", "digital", "environment"].includes(page) && (
-        <div className="subpage">
-          <h1>{focusContent[page].title}</h1>
-          <div className="subpage-content">
-            <img src={focusContent[page].img} alt={focusContent[page].title} className="subpage-img" />
-            <p>{focusContent[page].text}</p>
-          </div>
+        <div className="detail-points">
+          {/* এই লাইনটিই এরর দিচ্ছে, এখানে optional chaining ব্যবহার করুন */}
+          {focusContent[page]?.points?.map((p) => (
+            <div key={p.id} className="detail-point-item">
+              <span className="point-number">{p.id}</span>
+              <div className="point-text-content">
+                <h4>{p.title}</h4>
+                <p>{p.text}</p>
+              </div>
+            </div>
+          ))}
         </div>
-      )}
-     
+      </div>
+    </div>
+  </div>
+)}
+        
         {page === "sponsorPage" && <SponsorPage goSponsor={goSponsor} />}
         {page === "sponsor" && <Sponsor />}
 
         <CarbonFootprintDisplay />
-    </div>
+      </div>
     </SponsorProvider>
   );
 }

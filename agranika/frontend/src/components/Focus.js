@@ -25,7 +25,6 @@ const Focus = ({ goToPage }) => {
       <div className="focus-header-box">
           <div className="focus-image">
     <img src={bg} alt="Focus Areas Banner" />
-    <h1>Focus Areas</h1>
   </div>
       </div>
       <div className="focus-cards">

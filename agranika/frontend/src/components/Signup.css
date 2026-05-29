@@ -12,11 +12,12 @@
 .signup-content {
   display: flex;
   width: 900px; /* কার্ড লেআউট */
-  height: 600px; 
+  min-height: 550px; /* ফিক্সড height কেটে min-height দেওয়া হলো যেন কন্টেন্ট আটকে না যায় */
   background: white;
   border-radius: 20px;
   box-shadow: 0 15px 35px rgba(0,0,0,0.2);
   overflow: hidden;
+  align-items: stretch; /* দুই পাশের হাইট সমান রাখার জন্য */
 }
 
 .form-side {
@@ -25,7 +26,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 40px;
+  padding: 30px 40px; /* প্যাডিং কিছুটা কমানো হলো */
   background: #ffffff;
 }
 
@@ -36,29 +37,28 @@
 }
 
 .form-wrapper h1 {
-  font-size: 28px;
+  font-size: 26px; /* সামান্য ছোট করা হলো */
   margin-bottom: 5px;
   color: #333;
 }
 
 .form-wrapper p {
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   color: #777;
 }
 
 .signup-form input {
   width: 100%;
-  padding: 14px;
-  margin-bottom: 12px;
+  padding: 11px; /* ১৪ থেকে কমিয়ে ১১ করা হলো */
+  margin-bottom: 10px; /* ১২ থেকে কমিয়ে ১০ করা হলো */
   border: 1px solid #ddd;
   border-radius: 8px;
   box-sizing: border-box;
 }
 
-
 .submit-btn {
   width: 100%;
-  padding: 16px;
+  padding: 13px; /* ১৬ থেকে কমিয়ে ১৩ করা হলো */
   background: #a7f6a7 !important;
   color: #000 !important;
   border: none !important;
@@ -66,7 +66,7 @@
   font-weight: bold;
   font-size: 16px;
   cursor: pointer;
-  margin-top: 10px;
+  margin-top: 5px;
   transition: 0.3s;
 }
 
@@ -77,6 +77,7 @@
 .image-side {
   flex: 1;
   position: relative;
+  min-height: 100%; /* ছবি যেন পুরো ফর্মের সমান লম্বা হয় */
 }
 
 .image-side img {
@@ -92,6 +93,19 @@
   opacity: 1;
 }
 
-.login-link { margin-top: 20px; font-size: 14px; }
-.login-link span { color: #0042f9; cursor: pointer; font-weight: bold; }
-.msg { margin-top: 10px; font-weight: bold; color: #333; }
+.login-link { 
+  margin-top: 20px; 
+  font-size: 14px; 
+}
+
+.login-link span { 
+  color: #0042f9; 
+  cursor: pointer; 
+  font-weight: bold; 
+}
+
+.msg { 
+  margin-top: 10px; 
+  font-weight: bold; 
+  color: #333; 
+}

@@ -123,7 +123,7 @@
 /* Hover lift effect */
 .focus-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  box-shadow: 0 50px 100px rgba(222, 127, 127, 0.15);
 }
 
 /* Responsive Subpages */
@@ -143,9 +143,97 @@
 }
 
 .focus-image img {
-  width: 1000%;
-  max-width: 1450px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  width: 52%;
+  max-width: 1000px;
+  border-radius: 25px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+}
+/* মেইন কন্টেইনার */
+.focus-detail-page {
+  padding: 40px 5%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* গ্রিড লেআউট: ছবিটি বামে, টেক্সট ডানে */
+.subpage-content {
+  display: grid;
+  grid-template-columns: 80% 55%; /* বামে ছবির জন্য ৪৫%, ডানে টেক্সটের জন্য ৫০% */
+  gap: 5%;
+  align-items: start; /* সব ওপরের দিকে সমান থাকবে */
+}
+
+/* ছবি বক্স */
+.detail-image-box img {
+  width: 100%;
+  border-radius: 20px;
+  display: block;
+}
+
+/* টেক্সট বক্স */
+.detail-text-box {
+  display: flex;
+  flex-direction: column;
+}
+
+/* পয়েন্ট লিস্ট নিচে নিচে সাজানো */
+.detail-points {
+  display: flex;
+  flex-direction: column; /* এটি নিশ্চিত করে পয়েন্টগুলো নিচে নিচে থাকবে */
+  gap: 25px;
+  margin-top: 30px;
+}
+
+/* প্রতিটি পয়েন্ট আইটেম */
+.detail-point-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+/* গোল নাম্বার */
+.point-number {
+  background-color: #e8f5e9; /* হালকা সবুজ ব্যাকগ্রাউন্ড */
+  color: #2e7d32;           /* গাঢ় সবুজ টেক্সট */
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+/* পয়েন্টগুলোর লিস্ট কন্টেইনার */
+.detail-points {
+  display: flex !important; /* !important দিয়ে অন্য কোনো স্টাইলকে ব্লক করা হয়েছে */
+  flex-direction: column !important;
+  gap: 25px !important;
+  width: 100% !important;
+  margin-top: 30px !important;
+}
+
+/* প্রতিটি পয়েন্ট আইটেম */
+.detail-point-item {
+  display: flex !important;
+  flex-direction: row !important; /* নাম্বার এবং লেখা পাশাপাশি থাকবে */
+  align-items: flex-start !important;
+  gap: 20px !important;
+  width: 100% !important;
+}
+
+/* গোল নাম্বার */
+.point-number {
+  background-color: #e8f5e9 !important;
+  color: #2e7d32 !important;
+  width: 40px !important;
+  height: 40px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 50% !important;
+  font-weight: bold !important;
+  flex-shrink: 0 !important;
 }
 

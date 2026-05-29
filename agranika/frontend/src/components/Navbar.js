@@ -2,14 +2,25 @@ import React, { useState } from "react";
 import "./navbar.css";
 import logo from "../assets1/Logo2-removebg.png";
 
-function Navbar({ goHome, goMission, goFocus, goTeam, goContact, goDonate, goSponsorPage, goAdmin,goProfile  }) {
+function Navbar({ goHome, goMission, goFocus, goTeam, goContact, goDonate, goSponsorPage, goAdmin, goProfile, goLogin }) {
   const [showAboutDropdown, setShowAboutDropdown] = useState(false);
 
   const user = JSON.parse(localStorage.getItem("user"));
   const isAdmin = user && user.role === "admin";
 
+  const handleLogout = () => {
+    localStorage.removeItem("user"); 
+    
+    if (goLogin) {
+      goLogin(); 
+    } else {
+      window.location.href = "/login"; 
+    }
+  };
+
   return (
     <header className="navbar">
+   
       <div className="logo-box">
         <img src={logo} alt="Logo" className="logo" />
       </div>
@@ -40,9 +51,9 @@ function Navbar({ goHome, goMission, goFocus, goTeam, goContact, goDonate, goSpo
         </div>
 
         <button onClick={goDonate}>Donate</button>
-        <button onClick={goProfile}>Profile</button>
+        
+        {user && <button onClick={goProfile}>Profile</button>}
 
-      
         {isAdmin && (
           <button className="admin-nav-btn" onClick={goAdmin} style={{ color: "#000000", fontWeight: "bold" }}>
             Dashboard ⚙️
@@ -54,6 +65,12 @@ function Navbar({ goHome, goMission, goFocus, goTeam, goContact, goDonate, goSpo
         <button className="sponsor-btn" onClick={goSponsorPage}>
           Sponsor a Child
         </button>
+
+        {user && (
+          <button className="logout-btn" onClick={handleLogout}>
+            Logout
+          </button>
+        )}
       </div>
     </header>
   );

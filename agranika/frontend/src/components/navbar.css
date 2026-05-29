@@ -135,3 +135,36 @@
   background: #f7fff8;
   color: #d89d00;
 }
+
+.logout-btn {
+  background: linear-gradient(135deg, #cf4b4b, #a81b1b); /* প্রিমিয়াম গ্রেডিয়েন্ট কালার */
+  color: #ffffff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 30px; 
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px; 
+  box-shadow: 0 4px 15px rgba(255, 78, 80, 0.2); /* হালকা গ্লো ইফেক্ট */
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* স্মুথ অ্যানিমেশন */
+}
+
+.logout-btn:hover {
+  transform: translateY(-3px) scale(1.03); /* সামান্য ওপরে উঠবে এবং বড় হবে */
+  box-shadow: 0 6px 20px rgba(255, 78, 80, 0.4); /* শ্যাডো আরও গাঢ় হবে */
+  background: linear-gradient(135deg, #f9d423, #ff4e50); /* গ্রেডিয়েন্ট রিভার্স হবে */
+}
+
+.logout-btn:active {
+  transform: translateY(-1px) scale(0.98);
+  box-shadow: 0 2px 10px rgba(255, 78, 80, 0.2);
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 15px; 
+}
