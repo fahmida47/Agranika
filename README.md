@@ -164,7 +164,7 @@ Agranika/
 | --------------- | -------------------- |
 | Ahona Zabin | Frontend Developer   |
 | Fahmida Afrin Nadia | Backend Developer  |
-| Teammate Name 3 | Frontend Developer   |
+| Afifa Faija Onima | Frontend Developer   |
 
 ---
 
