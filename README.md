@@ -102,10 +102,8 @@ Mobile App Version
 👨‍💻 Team Members
 Name	Role
 Ahona Zabin	Frontend Developer
-Fahmida Afrin Nadia	Backend Developer
+Fahmida Afrin Nadia	Full Stack Developer
 Afifa Faija Onima	Frontend Developer
-📌 GitHub Repository
-🔗 Repository Link: https://github.com/fahmida47/Agranika
 
 📄 Conclusion
 Agranika aims to digitally transform the educational support system for underprivileged children by providing a transparent, efficient, and user-friendly platform.
