@@ -112,5 +112,4 @@ Agranika aims to digitally transform the educational support system for underpri
 
 Using modern web technologies, the system seeks to bridge the gap between donors, organizations, and children — helping create better educational opportunities and a brighter future.
 
-⭐ Support
-If you like this project, consider giving it a ⭐ on GitHub!
+
